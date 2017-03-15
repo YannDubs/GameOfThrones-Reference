@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 1); // Enable error logging
 
-class DBController {
+class DBConnector {
 	private $conn;
 
 	public function __construct($db, $host = 'localhost', $port = 3306, $user = 'root', $pass = 'root') {
