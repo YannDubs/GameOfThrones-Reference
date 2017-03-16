@@ -1,0 +1,27 @@
+<div>
+  <input type="text" ng-model="dad_name">
+  <button ng-click="submit_form()">Send</button>
+</div>
+
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
+
+<div ng-show="show_result">
+  <table>
+    <thead>
+      <tr>
+        <td>Child</td>
+        <td>Mother</td>
+        <td>Father</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="i in result">
+        <td>{{i.name_child}}</td>
+        <td>{{i.name_mother}}</td>
+        <td>{{i.name_father}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
