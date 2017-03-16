@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" ng-app="GoT_Reference">
+<title ng-bind="PageTitle">GoT Reference</title>
+<!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<script src="js/main.js"></script>
+
+<!-- styles -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+
 <body>
 
-<div ng-app="">
-  <p>Name : <input type="text" ng-model="name"></p>
-  <h1>Hello {{name}}</h1>
+<div id="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="#tomato" onclick="closeNav()">Tomato</a>
+  <a href="#banana" onclick="closeNav()">Banana</a>
+</div>
+
+<div id="content">
+  <div id="sidebar-access">
+    <span id="sidebar-button" onclick="openNav()">&#9776; queries</span>
+    <div id="title">GoT Reference</div>
+  </div>
+  <div id="view" ng-view></div>
 </div>
 
 </body>
