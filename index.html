@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-US" ng-app="GoT_Reference">
-<title ng-bind="PageTitle">GoT Reference</title>
+<title ng-bind="$page.title()">GoT Reference</title>
 <!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
-
-<script src="js/main.js"></script>
+<script src="js/main.js"></script><!-- our code -->
 
 <!-- styles -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,16 +12,25 @@
 
 <body>
 
+<!-- sidebar code -->
 <div id="sidebar">
+  <!-- button to close sidebar -->
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <!-- query view links -->
   <a href="#sample" onclick="closeNav()">Sample</a>
+  <!-- add more links here -->
+
+  <hr>
+  <!-- link back to coverpage -->
+  <a href="#" onclick="closeNav()">Cover Page</a>
 </div>
 
+<!-- content code -->
 <div id="content">
   <div id="sidebar-access">
     <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
-    <!--<div id="title">GoT Reference</div>-->
   </div>
+  <!-- this div will be replaced with whatever is chosen by Angular-->
   <div id="view" ng-view></div>
 </div>
 
