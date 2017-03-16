@@ -39,11 +39,13 @@
 }
 
 #sidebar-button {
+  z-index: 1;
   font-size:30px;
   cursor:pointer;
 }
 
 #title {
+  z-index: 2;
   font-size: 30px;
   float: right;
 }

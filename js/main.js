@@ -17,14 +17,34 @@ var app = angular.module('GoT_Reference', ["ngRoute"]);
 
 app.config(function($routeProvider) {
    $routeProvider
-    .when("/banana", {
-        template : "<h1>Banana</h1><p>Bananas contain around 75% water.</p>"
-    })
-    .when("/tomato", {
-        template : "<h1>Tomato</h1><p>Tomatoes contain around 95% water.</p>"
+    .when("/sample", {
+        templateUrl: "views/sample_q.html",
+        controller: "SampleQController",
+        url: ""
     })
     .otherwise({
         templateUrl : "views/coverpage.html",
         url:""
     });
+});
+
+app.controller("SampleQController", function($scope, $http){
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  $scope.submit_form = function () {
+    $scope.show_loading = true;
+    $scope.show_result = false;
+
+    $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
+      $scope.show_loading = false;
+      $scope.show_result = true;
+      $scope.result = res.data;
+    }, function error(res){
+
+    });
+  }
+
+
+
 });

@@ -4,6 +4,7 @@
 <!-- scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+
 <script src="js/main.js"></script>
 
 <!-- styles -->
@@ -14,14 +15,13 @@
 
 <div id="sidebar">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#tomato" onclick="closeNav()">Tomato</a>
-  <a href="#banana" onclick="closeNav()">Banana</a>
+  <a href="#sample" onclick="closeNav()">Sample</a>
 </div>
 
 <div id="content">
   <div id="sidebar-access">
-    <span id="sidebar-button" onclick="openNav()">&#9776; queries</span>
-    <div id="title">GoT Reference</div>
+    <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
+    <!--<div id="title">GoT Reference</div>-->
   </div>
   <div id="view" ng-view></div>
 </div>
