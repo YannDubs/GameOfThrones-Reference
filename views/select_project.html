@@ -1,7 +1,7 @@
 <!-- (1 point) Selection and projection query --> 
 <!-- provide an interface for the user to specify the selection condition and the attributes to be returned.-->
 <form>
-    <p>Select a group: </p>
+    <legend>Choose a group:</legend>
     <div class="cc-selector">
         <input id="arryn" type="radio" name="house" value="arryn" />
         <label class="drinkcard-cc arryn" for="arryn"></label>
@@ -22,4 +22,24 @@
         <input id="tyrell" type="radio" name="house" value="tyrell" />
         <label class="drinkcard-cc tyrell" for="tyrell"></label>
     </div>
+
+    <fieldset data-role="controlgroup" data-type="horizontal">
+        <legend>Choose attributes:</legend>
+        <label for="name">name</label>
+        <input type="checkbox" name="attribute" id="name" value="name">
+        <label for="year_of_birth">year_of_birth</label>
+        <input type="checkbox" name="attribute" id="year_of_birth" value="year_of_birth">
+        <label for="gender">gender</label>
+        <input type="checkbox" name="attribute" id="gender" value="gender">
+        <label for="job">job</label>
+        <input type="checkbox" name="attribute" id="job" value="job">
+        <label for="first_appearance">first_appearance</label>
+        <input type="checkbox" name="attribute" id="first_appearance" value="first_appearance">
+        <label for="killer">killer</label>
+        <input type="checkbox" name="attribute" id="killer" value="killer">
+        <label for="killed_in_season">killed_in_season</label>
+        <input type="checkbox" name="attribute" id="killed_in_season" value="killed_in_season">
+    </fieldset>
+
+    <input type="submit" value="Get Info" />
 </form>
