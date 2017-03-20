@@ -46,6 +46,11 @@ app.config(function($routeProvider) {
         controller: "SampleQController",
         url: ""
     })
+    .when("/select_project", {
+        templateUrl: "views/select_project.html",
+        controller: "SampleQController",
+        url: ""
+    })
     // add more views here
     // default to the coverpage
     .otherwise({
