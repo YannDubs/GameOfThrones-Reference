@@ -15,7 +15,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT * FROM ChildrenGoT");
+  $table = $conn->query("SELECT table_name FROM user_tables");
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output
