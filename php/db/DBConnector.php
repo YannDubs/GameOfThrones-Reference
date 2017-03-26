@@ -57,7 +57,6 @@ class DBConnector {
 
 			while (($row = oci_fetch_array($stmt, OCI_ASSOC)) != false) {
     		$ret[] = $row;
-				var_dump($row);
 			}
 
 			oci_free_statement($stmt);
@@ -68,6 +67,7 @@ class DBConnector {
 			throw new FailureException("POST-ed JSON data could not be parsed");
 		}
 	}
+
 
   // this automatically frees the connection. You do not need to call explicitly
 	public function __destruct() {
