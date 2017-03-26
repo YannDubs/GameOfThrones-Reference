@@ -1,20 +1,28 @@
 <?php
 
-require_once('DBConnector.php'); // import DBConnector
+ini_set('display_errors', 1); // Enable error logging
+
+
+require_once('db/DBConnector.php'); // import DBConnector
+require_once('exception/ExceptionAsJSON.php');
+require_once('exception/FailureException.php');
+
 
 header("Content-type:application/json"); // set file type to json!
 
-$postdata = file_get_contents("php://input"); // get POST input (will be JSON from our UI)
-$params = json_decode($postdata); // Decode the JSON into something PHP can handle
-
-// TODO: sterilize the arguments
-
-$conn = new DBConnector('304_db'); // Open a connection to the DB
+$conn = new DBConnector(); // Open a connection to the DB
 
 // gets resulting query array
-$table = $conn->query("SELECT * FROM `ChildOf` WHERE name_father NOT LIKE '$params->dad'");
 
-// convert PHP array to JSON and output
-echo json_encode($table);
+try {
+  $table = $conn->query("SELECT * FROM ChildrenGoT");
+  // $table = $conn->query("SELECT table_name FROM user_tables");
+
+  // convert PHP array to JSON and output
+  echo json_encode(["result" => $table]);
+
+} catch (ExceptionAsJSON $e){
+  echo $e->toJSON();
+}
 
 ?>
