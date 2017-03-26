@@ -1,13 +1,24 @@
 <?php
 ini_set('display_errors', 1); // Enable error logging
-
+//include ('OCI.inc');
 class DBConnector {
 	private $conn;
 
   // new DBConnector - constructor for DB connection
 	public function __construct($db, $host = 'localhost', $port = 3306, $user = 'root', $pass = 'root') {
-		$this->conn = new mysqli($host, $user, $pass, $db, $port);
+		$db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = dbhost.ugrad.cs.ubc.ca)(PORT = 1522)))(CONNECT_DATA=(SID=ug)))";
+		if ($c=oci_connect("ora_d1u0b", "a70387162", $db)) {
+		echo "Successfully connected to Oracle.\n";
+		          //OCILogoff($c);
+		} else {
+		//$err = OCIError();
+		  echo "Oracle Connect Error " ;//. $err['message'];
+		}
+
+
 	}
+
+
 
   // TODO: have a spoiler and error handler
 
