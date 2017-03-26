@@ -15,7 +15,8 @@ $conn = new DBConnector('304_db'); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT * FROM ChildOf WHERE name_father NOT LIKE :dad", ["dad" => "John"]);
+  //$table = $conn->query("SELECT * FROM ChildOf WHERE name_father NOT LIKE :dad", ["dad" => "John"]);
+  $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output
   echo json_encode($table);
