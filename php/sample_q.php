@@ -19,7 +19,7 @@ try {
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output
-  echo json_encode($table);
+  echo json_encode(["result" => $table]);
 
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
