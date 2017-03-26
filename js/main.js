@@ -61,6 +61,7 @@ app.config(function($routeProvider) {
 });
 
 // Controller for CoverPage view
+
 app.controller("CoverPageController", function($scope, $page){
   $page.setTitle(""); // Set title
 });
@@ -94,7 +95,7 @@ app.controller("SampleQController", function($scope, $http, $page){
 
       $scope.show_loading = false; // hide loading div
       $scope.show_result = true; // show result table
-      $scope.result = res.data; // populate result table
+      $scope.result = res.data.result; // populate result table
 
       // else if spoiler
         // if we get a spoiler, display the message
