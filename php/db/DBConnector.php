@@ -8,7 +8,7 @@ class DBConnector {
 	private $conn;
 
   // new DBConnector - constructor for DB connection
-	public function __construct($db, $host = 'localhost', $port = 3306, $user = 'root', $pass = 'root') {
+	public function __construct() {
 		$db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = dbhost.ugrad.cs.ubc.ca)(PORT = 1522)))(CONNECT_DATA=(SID=ug)))";
 		if (!$this->conn=oci_connect("ora_d1u0b", "a70387162", $db)){
 			$err = oci_error();
@@ -57,6 +57,7 @@ class DBConnector {
 
 			while (($row = oci_fetch_array($stmt, OCI_ASSOC)) != false) {
     		$ret[] = $row;
+				var_dump($row);
 			}
 
 			oci_free_statement($stmt);

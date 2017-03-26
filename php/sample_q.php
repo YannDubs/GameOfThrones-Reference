@@ -10,7 +10,7 @@ require_once('exception/FailureException.php');
 
 header("Content-type:application/json"); // set file type to json!
 
-$conn = new DBConnector('304_db'); // Open a connection to the DB
+$conn = new DBConnector(); // Open a connection to the DB
 
 // gets resulting query array
 
