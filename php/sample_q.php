@@ -5,6 +5,8 @@ ini_set('display_errors', 1); // Enable error logging
 
 require_once('db/DBConnector.php'); // import DBConnector
 require_once('exception/ExceptionAsJSON.php');
+require_once('exception/FailureException.php');
+
 
 header("Content-type:application/json"); // set file type to json!
 
@@ -18,6 +20,8 @@ try {
   // convert PHP array to JSON and output
   echo json_encode($table);
 
+} catch (Exception $e) {
+  throw new FailureException($e->getMessage());
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
 }
