@@ -20,12 +20,8 @@ try {
   // convert PHP array to JSON and output
   echo json_encode($table);
 
-} catch (Exception $e) {
-  echo (new FailureException($e->getMessage())).toJSON() ;
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
 }
-
-
 
 ?>
