@@ -56,7 +56,6 @@ class DBConnector {
 			$ret = [];
 
 			while (($row = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
-				var_dump($row);
     		$ret[] = $row;
 			}
 
