@@ -51,6 +51,11 @@ app.config(function($routeProvider) {
         controller: "SampleQController",
         url: ""
     })
+    .when("/join", {
+        templateUrl: "views/join.html",
+        controller: "SampleQController",
+        url: ""
+    })
     // add more views here
     // default to the coverpage
     .otherwise({
