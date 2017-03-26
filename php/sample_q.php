@@ -21,7 +21,7 @@ try {
   echo json_encode($table);
 
 } catch (Exception $e) {
-  throw new FailureException($e->getMessage());
+  echo (new FailureException($e->getMessage())).toJSON() ;
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
 }
