@@ -17,7 +17,7 @@ class DBConnector {
 	}
 
   // $conn->query("SELECT ....") = [] - parses a query
-	public function query(string $query, array $defaults = []): array {
+	public function query(string $query, array $defaults = []) {
 
 		preg_match_all("/:\w+/", $query, $keys); // get list of placeholders (pattern)
 
