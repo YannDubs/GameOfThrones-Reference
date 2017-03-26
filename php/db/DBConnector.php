@@ -10,10 +10,10 @@ class DBConnector {
   // new DBConnector - constructor for DB connection
 	public function __construct($db, $host = 'localhost', $port = 3306, $user = 'root', $pass = 'root') {
 		$db = "(DESCRIPTION=(ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = dbhost.ugrad.cs.ubc.ca)(PORT = 1522)))(CONNECT_DATA=(SID=ug)))";
-		// if (!$this->conn=oci_connect("ora_d1u0b", "a70387162", $db)){
-		// 	$err = oci_error();
-		//   throw new FailureException ( "Oracle Connect Error" . $err['message'] );
-		// }
+		if (!$this->conn=oci_connect("ora_d1u0b", "a70387162", $db)){
+			$err = oci_error();
+		  throw new FailureException ( "Oracle Connect Error" . $err['message'] );
+		}
 	}
 
   // $conn->query("SELECT ....") = [] - parses a query
@@ -70,7 +70,7 @@ class DBConnector {
 
   // this automatically frees the connection. You do not need to call explicitly
 	public function __destruct() {
-		// oci_close($this->conn);
+		oci_close($this->conn);
 	}
 
 }
