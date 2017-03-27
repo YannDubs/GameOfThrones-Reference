@@ -51,9 +51,9 @@ app.config(function($routeProvider) {
         controller: "SampleQController",
         url: ""
     })
-    .when("/join", {
-        templateUrl: "views/join.html",
-        controller: "SampleQController",
+    .when("/killed", {
+        templateUrl: "views/killed.html",
+        controller: "KilledController",
         url: ""
     })
     // add more views here
@@ -92,6 +92,53 @@ app.controller("SampleQController", function($scope, $http, $page){
 
     // send request to server
     $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
+      // when we get data back
+
+      // TODO: handle this
+      // if result
+        // if we get a valid result
+
+      $scope.show_loading = false; // hide loading div
+      $scope.show_result = true; // show result table
+      $scope.result = res.data.result; // populate result table
+
+      // else if spoiler
+        // if we get a spoiler, display the message
+      // else if error
+        // if we get an error, display the error
+      // else
+        // we shouldn't get this
+        // need to display an error
+
+    }, function error(res){
+      // if there was an error establishing connection,
+      // display an error
+    });
+  }
+
+});
+
+// Controller for SampleQ view
+app.controller("KilledController", function($scope, $http, $page){
+  $page.setTitle("Killed"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    // send request to server
+    $http.post("php/killer_q.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       // TODO: handle this
