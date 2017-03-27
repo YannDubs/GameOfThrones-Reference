@@ -1,6 +1,8 @@
 <div>
-  <input type="text" ng-model="character">
-  <button ng-click="submit_form()">Send</button>
+  <p>
+    Is <input type="text" ng-model="character"> dead?
+  </p>
+  <button ng-click="submit_form()">Enter</button>
 </div>
 
 <div ng-show="show_loading">
@@ -11,14 +13,14 @@
   <table>
     <thead>
       <tr>
-        <td>killed in season</td>
-        <td>killed by</td>
+        <td style="padding:0 15px 0 15px;">killed by</td>
+        <td style="padding:0 15px 0 15px;">in season</td>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="i in result">
-        <td>{{i.killed_in_season}}</td>
-        <td>{{i.name_killer}}</td>
+        <td style="padding:0 15px 0 15px;">{{i.NAME_KILLER}}</td>
+        <td style="padding:0 15px 0 15px;">{{i.KILLED_IN_SEASON}}</td>
       </tr>
     </tbody>
   </table>

@@ -17,7 +17,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 try {
   $table = $conn->query("SELECT killed_in_season , name_killer 
 						FROM CharacterGoT, UsersGoT
-						WHERE name = :character");
+						WHERE name = :character");  
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output
