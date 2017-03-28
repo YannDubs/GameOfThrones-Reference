@@ -534,7 +534,7 @@ WHERE name_group = 'Stark' AND since_season < (SELECT season FROM UsersGoT WHERE
 
 ##### Does the owner of the place where X live aspires to the throne? #####
 
-SELECT l.name, l.aspires_to_throne
+SELECT l.name AS name, l.aspires_to_throne AS aspires_to_throne
 FROM LeaderGot l, PlaceGot p, CharacterGoT c
 WHERE c.name = 'Sansa Stark' AND p.name = c.place_of_living  AND l.name_group = p.name_group AND  l.since_season = ( 
 SELECT max(l.since_season )

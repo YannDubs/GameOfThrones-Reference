@@ -61,6 +61,11 @@ app.config(function($routeProvider) {
         controller: "LeaderOfGroupController",
         url: ""
     })
+    .when("/owner_of_place", {
+        templateUrl: "views/owner_of_place.html",
+        controller: "OwnerOfPlaceController",
+        url: ""
+    })
     // add more views here
     // default to the coverpage
     .otherwise({
@@ -216,5 +221,49 @@ app.controller("LeaderOfGroupController", function($scope, $http, $page){
 
 });
 
+app.controller("OwnerOfPlaceController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
 
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    // send request to server
+    $http.post("php/owner_of_place.php", {'place': $scope.place}).then(function success(res){
+      // when we get data back
+
+      // TODO: handle this
+      // if result
+        // if we get a valid result
+
+      $scope.show_loading = false; // hide loading div
+      $scope.show_result = true; // show result table
+      $scope.result = res.data.result; // populate result table
+
+      // else if spoiler
+        // if we get a spoiler, display the message
+      // else if error
+        // if we get an error, display the error
+      // else
+        // we shouldn't get this
+        // need to display an error
+
+    }, function error(res){
+      // if there was an error establishing connection,
+      // display an error
+    });
+  }
+
+});
 
