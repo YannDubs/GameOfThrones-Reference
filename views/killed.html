@@ -1,6 +1,8 @@
 <div>
-  <input type="text" ng-model="character">
-  <button ng-click="submit_form()">Send</button>
+  <p>
+    Is <input type="text" ng-model="character" placeholder="character"> dead?
+  </p>
+  <button ng-click="submit_form()">Enter</button>
 </div>
 
 <div ng-show="show_loading">
@@ -8,18 +10,6 @@
 </div>
 
 <div ng-show="show_result">
-  <table>
-    <thead>
-      <tr>
-        <td>killed in season</td>
-        <td>killed by</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="i in result">
-        <td>{{i.killed_in_season}}</td>
-        <td>{{i.name_killer}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div ng-show="(result).length">Killed by {{result[0].NAME_KILLER}} in season {{result[0].KILLED_IN_SEASON}}</div>
+  <div ng-show="!(result).length">Character is still alive</div>
 </div>

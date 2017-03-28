@@ -1,6 +1,7 @@
 #sidebar {
   height: 100%;
-  width: 0;
+  width: 300px;
+  margin-left: -300px;
   position: fixed;
   z-index: 1;
   top: 0;
@@ -33,7 +34,8 @@
 }
 
 #sidebar-access {
-  padding: 12px;
+  padding: 24px;
+  background-color: #dddddd;
 }
 
 #sidebar .closebtn {
@@ -45,8 +47,8 @@
 }
 
 #sidebar-button {
+  font-size:24px;
   z-index: 1;
-  font-size:30px;
   cursor:pointer;
 }
 
@@ -64,12 +66,10 @@
 }
 
 #view {
-  padding: 16px;
+  padding: 16px 50px;
 }
 
-#sidebar-access {
-  background-color: #dddddd;
-}
+
 
 .cc-selector input{
     margin:0;padding:0;
@@ -110,6 +110,14 @@
     -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
        -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
             filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+.alert-repeater .alert {
+  margin-bottom: 0px;
+}
+
+.alert-repeater:last-child .alert {
+  margin-bottom: 20px;
 }
 
 /* Extras */
