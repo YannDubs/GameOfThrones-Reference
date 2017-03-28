@@ -138,7 +138,7 @@ app.controller("KilledController", function($scope, $http, $page){
     $scope.show_result = false; // make sure result table is hidden
 
     // send request to server
-    $http.post("php/killer_q.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/killed_q.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       // TODO: handle this
