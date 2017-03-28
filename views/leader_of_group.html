@@ -1,0 +1,15 @@
+<div>
+  <p>
+    Who is the current leader of <input type="text" ng-model="name" placeholder="group"> and do they aspire to the throne?
+  </p>
+  <button ng-click="submit_form()">Enter</button>
+</div>
+
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
+
+<div ng-show="show_result">
+  <div ng-show="(result).length"> The leader is {{result[0].NAME}} , aspires to throne: {{result[0].ASPIRES_TO_THRONE}} </div>
+  <div ng-show="!(result).length">Unknown</div>
+</div>
