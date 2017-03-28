@@ -2,13 +2,16 @@
 <html lang="en-US" ng-app="GoT_Reference">
 <title ng-bind="$page.title()">GoT Reference</title>
 <!-- scripts -->
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.3/angular-route.js"></script>
+<script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script><!-- our code -->
 <script src="js/main.js"></script><!-- our code -->
 
+
 <!-- styles -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/ui-bootstrap-2.5.0-csp.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 <body>
 
@@ -17,28 +20,55 @@
   <!-- button to close sidebar -->
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <!-- query view links -->
-  <a href="#sample" onclick="closeNav()">Sample</a>
+  <a href="#!/sample" onclick="closeNav()">Sample</a>
   <!-- add more links here -->
-  <a href="#select_project" onclick="closeNav()">Select Project</a>
-  <a href="#killed" onclick="closeNav()">Killed</a>
-  <a href="#leader_of_group" onclick="closeNav()">Leader of Group</a>
-  <a href="#owner_of_place" onclick="closeNav()">Owner of Place</a>
+  <a href="#!select_project" onclick="closeNav()">Select Project</a>
+  <a href="#!killed" onclick="closeNav()">Killed</a>
+  <a href="#!leader_of_group" onclick="closeNav()">Leader of Group</a>
+  <a href="#!owner_of_place" onclick="closeNav()">Owner of Place</a>
   <hr>
   <!-- link back to coverpage -->
-  <a href="#" onclick="closeNav()">Cover Page</a>
+  <a href="#!" onclick="closeNav()">Cover Page</a>
 </div>
 
 <!-- content code -->
-<div id="content">
-  <div id="sidebar-access">
-	 <form id="login-infos">
-		 <input class="login" type="text" placeholder="Username" ng-model="username_field"><br>
-		 <input class="login" type="password" placeholder="Password" ng-model="password_field"><br>
-		 <button class="login" ng-click="submit_login_form()">Sign in</button>
-	</form>
-    <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>	
- </div>
+<div id="content" ng-controller="ContentController">
+  <div id="sidebar-access" class="row">
+    <div class="col-md-2">
+      <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-5">
+	     <div class="input-group" ng-controller="AdminLoginController">
+         <span class="input-group-addon">
+           Admin Login:
+         </span>
+		     <input class="form-control" type="text" placeholder="Username" ng-model="username_field" style="width:50%;">
+		     <input class="form-control" type="password" placeholder="Password" ng-model="password_field" style="width:50%;">
+         <span class="input-group-btn">
+           <button class="btn btn-secondary" ng-click="submit_login_form()">Sign in</button>
+         </span>
+       </div>
+	    </div>
+    </div>
   <!-- this div will be replaced with whatever is chosen by Angular-->
+  <div class="alert-container">
+    <div class="alert-repeater" ng-repeat="alert in alerts track by $index">
+      <div uib-alert ng-if="alert.type == 'info'" class="alert alert-info" role="alert" close="closeAlert()" dismiss-on-timeout="5000">
+          <strong>Hey!</strong> {{alert.message}}.
+          <p ng-if="alert.details"><i>{{alert.details}}</i></p>
+      </div>
+      <div uib-alert ng-if="alert.type == 'spoiler'" class="alert alert-warning" role="alert" close="closeAlert()" dismiss-on-timeout="5000">
+        <strong>Spoiler!</strong> {{alert.message}}.
+        <p ng-if="alert.details"><i>{{alert.details}}</i></p>
+      </div>
+      <div uib-alert ng-if="alert.type == 'error'" class="alert alert-danger" role="alert" close="closeAlert()" dismiss-on-timeout="5000">
+        <strong>Error: </strong> {{alert.message}}.
+        <p ng-if="alert.details"><i>{{alert.details}}</i></p>
+      </div>
+    </div>
+  </div>
+
   <div id="view" ng-view></div>
 </div>
 
