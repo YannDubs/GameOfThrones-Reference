@@ -29,8 +29,13 @@
 <!-- content code -->
 <div id="content">
   <div id="sidebar-access">
-    <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
-  </div>
+	 <form id="login-infos">
+		 <input class="login" type="text" placeholder="Username" ng-model="username_field"><br>
+		 <input class="login" type="password" placeholder="Password" ng-model="password_field"><br>
+		 <button class="login" ng-click="submit_login_form()">Sign in</button>
+	</form>
+    <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>	
+ </div>
   <!-- this div will be replaced with whatever is chosen by Angular-->
   <div id="view" ng-view></div>
 </div>
