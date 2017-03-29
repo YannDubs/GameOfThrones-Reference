@@ -89,7 +89,7 @@ app.controller("AdminLoginController", function($scope, $http){
           if (res.data.result.length !== 1){
             the_scope.postErrorMessage("Invalid username or password");
           } else {
-            the_scope.account=res.data.result;
+            the_scope.account=res.data.result[0];
           }
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
@@ -98,7 +98,6 @@ app.controller("AdminLoginController", function($scope, $http){
       } else {
           the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
-
     }, function error(res){
       the_scope.show_loading = false;
       the_scope.postErrorMessage("There was an exception", res.message);
