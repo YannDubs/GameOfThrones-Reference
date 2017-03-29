@@ -137,6 +137,7 @@ app.controller("ContentController", function($scope){
 
   $scope.logout = function(){
     $scope.account = undefined;
+    $scope.postInfoMessage("You have successfully Logged Out");
   };
 
 });
