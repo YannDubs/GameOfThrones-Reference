@@ -39,7 +39,7 @@
     </div>
     <div class="col-md-5"></div>
     <div class="col-md-5">
-	     <div class="input-group" ng-controller="AdminLoginController">
+	     <div ng-if="admin==undefined" class="input-group" ng-controller="AdminLoginController">
          <span class="input-group-addon">
            Admin Login:
          </span>
@@ -50,6 +50,18 @@
          </span>
        </div>
 	    </div>
+      <div ng-if="admin!=undefined" class="input-group">
+        <span class="input-group-addon">
+          Logged in as:
+        </span>
+        <span class="input-group-addon">
+          {{admin.USERNAME}}
+        </span>
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" ng-click="logout()">Logout</button>
+        </span>
+      </div>
+     </div>
     </div>
   <!-- this div will be replaced with whatever is chosen by Angular-->
   <div class="alert-container">

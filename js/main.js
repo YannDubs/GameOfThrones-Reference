@@ -90,7 +90,7 @@ app.controller("AdminLoginController", function($scope, $http){
 
   $scope.submit_login_form = function () {
     var the_scope = $scope;
-    $http.post("php/login_q.php", {'userN': $scope.username_field}).then(function success(res){
+    $http.post("php/login_q.php", {'userN': $scope.username_field, 'passW': $scope.password_field}).then(function success(res){
       // when we get data back
     the_scope.postErrorMessage("No login found. Contact the administrator for an account");
       if (res.data.result){
@@ -120,6 +120,7 @@ app.controller("ContentController", function($scope){
   console.log($scope);
 
   $scope.alerts = [];
+  $scope.admin = undefined;
 
   $scope.postErrorMessage = function(s,d){
     $scope.alerts.push({type: "error", message: s, details: d});
@@ -135,6 +136,14 @@ app.controller("ContentController", function($scope){
 
   $scope.closeAlert = function(idx){
     $scope.alerts.splice(idx, 1);
+  };
+
+  $scope.login = function(acct){
+    $scope.admin = acct;
+  };
+
+  $scope.logout = function(){
+    $scope.admin = undefined;
   };
 
 });

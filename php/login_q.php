@@ -15,9 +15,9 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT password, isModerator, season ".
+  $table = $conn->query("SELECT username, isModerator, season".
 						"FROM UsersGoT ".
-						"WHERE username = :userN");
+						"WHERE username = :userN AND password = :passW");
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
