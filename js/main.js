@@ -79,29 +79,22 @@ app.controller("CoverPageController", function($scope, $page){
   $page.setTitle(""); // Set title
 });
 
-//vars for login purposes
-var username;
-var password;
-var isAdmin;
-var season;
 app.controller("AdminLoginController", function($scope, $http){
-
-  console.log($scope);
 
   $scope.submit_login_form = function () {
     var the_scope = $scope;
     $http.post("php/login_q.php", {'userN': $scope.username_field, 'passW': $scope.password_field}).then(function success(res){
       // when we get data back
-    the_scope.postErrorMessage("No login found. Contact the administrator for an account");
       if (res.data.result){
-          username=res.data.result;
-          alert(username);
-          $scope.postErrorMessage("Hello");
+          if (res.data.result.length !== 1){
+            the_scope.postErrorMessage("Invalid username or password");
+          } else {
+            the_scope.account=res.data.result;
+          }
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
         the_scope.postErrorMessage(res.data.error);
-
       } else {
           the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
@@ -120,7 +113,7 @@ app.controller("ContentController", function($scope){
   console.log($scope);
 
   $scope.alerts = [];
-  $scope.admin = undefined;
+  $scope.account = undefined;
 
   $scope.postErrorMessage = function(s,d){
     $scope.alerts.push({type: "error", message: s, details: d});
@@ -139,11 +132,11 @@ app.controller("ContentController", function($scope){
   };
 
   $scope.login = function(acct){
-    $scope.admin = acct;
+    $scope.account = acct;
   };
 
   $scope.logout = function(){
-    $scope.admin = undefined;
+    $scope.account = undefined;
   };
 
 });

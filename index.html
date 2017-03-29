@@ -39,7 +39,7 @@
     </div>
     <div class="col-md-5"></div>
     <div class="col-md-5">
-	     <div ng-if="admin==undefined" class="input-group" ng-controller="AdminLoginController">
+	     <div ng-if="account==undefined" class="input-group" ng-controller="AdminLoginController">
          <span class="input-group-addon">
            Admin Login:
          </span>
@@ -50,11 +50,12 @@
          </span>
        </div>
 	    </div>
-      <div ng-if="admin!=undefined" class="input-group">
+      <div ng-if="account!=undefined" class="input-group">
         <span class="input-group-addon">
           Logged in as:
         </span>
         <span class="input-group-addon">
+          <span ng-if="admin.ISMODERATOR" class="glyphicon glyphicon-wrench"></span>
           {{admin.USERNAME}}
         </span>
         <span class="input-group-btn">
