@@ -89,7 +89,7 @@ app.controller("AdminLoginController", function($scope, $http){
           if (res.data.result.length !== 1){
             the_scope.postErrorMessage("Invalid username or password");
           } else {
-            the_scope.account=res.data.result[0];
+            the_scope.account.login(res.data.result[0]);
           }
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
