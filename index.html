@@ -37,8 +37,8 @@
     <div class="col-md-2">
       <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
     </div>
-    <div class="col-md-5"></div>
-    <div class="col-md-5">
+    <div class="col-md-4"></div>
+    <div class="col-md-6">
 	    <div ng-if="account==undefined" class="input-group" ng-controller="AdminLoginController">
          <span class="input-group-addon">
            Admin Login:
@@ -49,13 +49,22 @@
            <button class="btn btn-secondary" ng-click="submit_login_form()">Sign in</button>
          </span>
        </div>
-      <div ng-if="account!=undefined" class="input-group">
+      <div ng-if="account!=undefined" class="input-group" style="float:right;">
         <span class="input-group-addon">
           Logged in as:
         </span>
         <span class="input-group-addon">
-          <span ng-if="account.ISMODERATOR == true" class="glyphicon glyphicon-wrench"></span>
           {{account.USERNAME}}
+        </span>
+        <span class="input-group-btn">
+          <a href="#!/modsettings">
+            <span ng-if="account.ISMODERATOR == true" class="glyphicon glyphicon-wrench"></span>
+          </a>
+        </span>
+        <span class="input-group-btn">
+          <a href="#!/settings">
+            <span class="glyphicon glyphicon-cog"></span>
+          </a>
         </span>
         <span class="input-group-btn">
           <button class="btn btn-secondary" ng-click="logout()">Logout</button>
