@@ -133,6 +133,7 @@ app.controller("SampleQController", function($scope, $http, $page){
     // send request to server
     $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
       // when we get data back
+the_scope.postErrorMessage("There was a problem.");
 
       if (res.data.result){
           the_scope.show_loading = false; // hide loading div
@@ -195,7 +196,7 @@ app.controller("ExploreGroupController", function($scope, $http, $page){
 
     }, function error(res){
       the_scope.show_loading = false;
-      the_scope.postErrorMessage("There was an exception", res);
+      the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });
   }
@@ -242,7 +243,7 @@ app.controller("KilledController", function($scope, $http, $page){
 
     }, function error(res){
       the_scope.show_loading = false;
-      the_scope.postErrorMessage("There was an exception", res);
+      the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });
   }
@@ -292,7 +293,6 @@ app.controller("LeaderOfGroupController", function($scope, $http, $page){
   }
 
 });
-<<<<<<< HEAD
 
 app.controller("OwnerOfPlaceController", function($scope, $http, $page){
   $page.setTitle("Sample"); // Set title
@@ -340,5 +340,3 @@ app.controller("OwnerOfPlaceController", function($scope, $http, $page){
 
 });
 
-=======
->>>>>>> 0d724d1dbe5f2cc87ce8cf22aca65ff4e449dd0c
