@@ -26,6 +26,9 @@
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
+.sidebarSelection:hover {
+  font-weight:bold;
+}
 
 #sidebar hr {
   border: 0;
@@ -38,7 +41,7 @@
   background-color: #dddddd;
 }
 
-#sidebar .closebtn {
+#sidebar #closebtn {
     position: absolute;
     top: 0;
     right: 25px;
