@@ -1,0 +1,15 @@
+<div>
+  <p>
+    In which season did were the most characters introduced?
+  </p>
+  <button ng-click="submit_form()">Enter</button>
+</div>
+
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
+
+<div ng-show="show_result">
+  <div ng-show="(result).length"> Season {{result[0].{{i.SEASON}}}} </div>
+  <div ng-show="!(result).length">Unknown</div>
+</div>

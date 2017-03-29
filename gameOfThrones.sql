@@ -558,7 +558,7 @@ SELECT season FROM UsersGoT WHERE username = 'prof'
 
 ##### Which character killed parents with a child  ? #####
 
-SELECT character.name_killer
+SELECT character.name_killer AS killer
 FROM ChildrenGot child, CharacterGoT character
 WHERE character.name IN (child.name_father, child.name_mother) AND character.name_killer IS NOT NULL AND character.killed_in_season < (
 SELECT season FROM UsersGoT WHERE username = 'prof'
@@ -584,7 +584,7 @@ SELECT season FROM UsersGoT WHERE username = 'prof'
 
 ##### In which season did most character appear and how many did ? #####
 
-SELECT query1.first_appearance
+SELECT query1.first_appearance AS season
 FROM (SELECT first_appearance, Count(*) AS order_count
       FROM CharacterGoT c
       GROUP BY c.first_appearance) query1,
@@ -634,7 +634,7 @@ WHERE query1.order_count = query3.highest_count)
 
 ##### Who had a child youngest ?  #####
 
-SELECT characterParent.name
+SELECT characterParent.name AS parent
 FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild
 WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name AND ( characterChild.year_of_birth - characterParent.year_of_birth ) = (
 SELECT  MIN(characterChild.year_of_birth - characterParent.year_of_birth)
@@ -643,7 +643,7 @@ WHERE characterParent.name IN (child.name_father, child.name_mother) AND charact
 )
 
 ##### What is the percentage of women  and men death?  #####
-SELECT query1.gender, query1.deathCount / query2.totalCount AS average_death
+SELECT query1.gender AS gender, query1.deathCount / query2.totalCount AS average_death
 FROM
 (SELECT gender, COUNT(*) AS deathCount
 FROM CharacterGoT
