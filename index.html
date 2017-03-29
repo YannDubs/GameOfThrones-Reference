@@ -57,18 +57,18 @@
           {{account.USERNAME}}
         </span>
         <span ng-if="account.ISMODERATOR == true"  class="input-group-btn">
-          <a href="#!/modsettings">
-            <button class="btn btn-secondary">
+          <button class="btn btn-secondary">
+            <a href="#!/modsettings">
               <span class="glyphicon glyphicon-wrench"></span>
-            </button>
-          </a>
+            </a>
+          </button>
         </span>
         <span class="input-group-btn">
-          <a href="#!/settings">
-            <button class="btn btn-secondary">
+          <button class="btn btn-secondary">
+            <a href="#!/settings">
               <span class="glyphicon glyphicon-cog"></span>
-            </button>
-          </a>
+            </a>
+          </button>
         </span>
         <span class="input-group-btn">
           <button class="btn btn-secondary" ng-click="logout()">Logout</button>
