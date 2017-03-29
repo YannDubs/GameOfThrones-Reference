@@ -50,23 +50,23 @@
          </span>
        </div>
       <div ng-if="account!=undefined" class="input-group" style="float:right;">
-        <span class="input-group-addon" style="width: 0">
+        <span class="input-group-addon">
           Logged in as:
         </span>
-        <span class="input-group-addon" style="width: 0; text-transform:capitalize;">
+        <span class="input-group-addon" style="text-transform:capitalize;">
           {{account.USERNAME}}
         </span>
-        <span ng-if="account.ISMODERATOR == true"  class="input-group-addon" style="width: 0">
+        <span ng-if="account.ISMODERATOR == true"  class="input-group-addon">
           <a href="#!/modsettings">
             <span class="glyphicon glyphicon-wrench"></span>
           </a>
         </span>
-        <span class="input-group-addon" style="width: 0">
+        <span class="input-group-addon">
           <a href="#!/settings">
             <span class="glyphicon glyphicon-cog"></span>
           </a>
         </span>
-        <span class="input-group-btn" style="width: 0">
+        <span class="input-group-btn">
           <button class="btn btn-secondary" ng-click="logout()">Logout</button>
         </span>
       </div>
