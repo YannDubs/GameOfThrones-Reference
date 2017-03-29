@@ -79,9 +79,39 @@ app.controller("CoverPageController", function($scope, $page){
   $page.setTitle(""); // Set title
 });
 
-app.controller("AdminLoginController", function($scope){
+//vars for login purposes
+var username;
+var password;
+var isAdmin;
+var season;
+app.controller("AdminLoginController", function($scope, $http){
 
   console.log($scope);
+
+  $scope.submit_login_form = function () {
+    var the_scope = $scope;
+    $http.post("php/login_q.php", {'userN': $scope.username_field}).then(function success(res){
+      // when we get data back
+    the_scope.postErrorMessage("No login found. Contact the administrator for an account");
+      if (res.data.result){
+          username=res.data.result;
+          alert(username);
+          $scope.postErrorMessage("Hello");
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.spoiler);
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }  
 
 });
 
@@ -133,7 +163,7 @@ app.controller("SampleQController", function($scope, $http, $page){
     // send request to server
     $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
       // when we get data back
-the_scope.postErrorMessage("There was a problem.");
+    the_scope.postErrorMessage("There was a problem.");
 
       if (res.data.result){
           the_scope.show_loading = false; // hide loading div
