@@ -69,6 +69,51 @@ app.config(function($routeProvider) {
         controller: "AgeOfDeathController",
         url: ""
     })
+    .when("/change_season", {
+        templateUrl: "views/change_season.html",
+        controller: "ChangeSeasonController",
+        url: ""
+    })
+    .when("/first_appearance", {
+        templateUrl: "views/first_appearance.html",
+        controller: "FirstAppearanceController",
+        url: ""
+    })
+    .when("/gender_deaths", {
+        templateUrl: "views/gender_deaths.html",
+        controller: "GenderDeathsController",
+        url: ""
+    })
+    .when("/killed_young", {
+        templateUrl: "views/killed_young.html",
+        controller: "KilledYoungController",
+        url: ""
+    })
+    .when("/made_orphan", {
+        templateUrl: "views/made_orphan.html",
+        controller: "MadeOrphanController",
+        url: ""
+    })
+    .when("/most_episodes", {
+        templateUrl: "views/most_episodes.html",
+        controller: "MostEpisodesController",
+        url: ""
+    })
+    .when("/most_killed", {
+        templateUrl: "views/most_killed.html",
+        controller: "MostKilledController",
+        url: ""
+    })
+    .when("/most_new_characters", {
+        templateUrl: "views/most_new_characters.html",
+        controller: "MostNewCharactersController",
+        url: ""
+    })
+    .when("/youngest_child", {
+        templateUrl: "views/youngest_child.html",
+        controller: "youngestChildController",
+        url: ""
+    })
     // add more views here
     // default to the coverpage
     .otherwise({
@@ -531,3 +576,428 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   }
 
 });
+
+app.controller("ChangeSeasonController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/change_season.php", {'season': $scope.season}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("FirstAppearanceController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/first_appearance.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("GenderDeathsController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/gender_deaths.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("KilledYoungController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/killed_young.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("MadeOrphanController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/made_orphan.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("MostEpisodesController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/most_episodes.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("MostKilledController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/most_killed.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("MostNewCharactersController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/most_new_characters.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("youngestChildController", function($scope, $http, $page){
+  $page.setTitle("Sample"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+    // TODO: turn the hidden div's into Angular components
+      // error component
+      // spoiler component
+      // result table component
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/youngest_child.php", {'character': $scope.character}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+

@@ -1,0 +1,25 @@
+<div>
+    <p>
+      Which character killed parents with a child? 
+    </p>
+  <button ng-click="submit_form()">Send</button>
+</div>
+
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
+
+<div ng-show="show_result">
+  <table>
+    <thead>
+      <tr>
+        <td>Killers listed below</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="i in result">
+        <td>{{i.KILLER}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

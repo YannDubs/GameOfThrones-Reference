@@ -1,8 +1,8 @@
 <div>
-  <p>
-    Who had the youngest child?
-  </p>
-  <button ng-click="submit_form()">Enter</button>
+    <p>
+      What is the percentage of death in men and women?
+    </p>
+  <button ng-click="submit_form()">Send</button>
 </div>
 
 <div ng-show="show_loading">
@@ -13,12 +13,14 @@
   <table>
     <thead>
       <tr>
-        <td>Character</td>
+        <td>Gender</td>
+        <td>Percentage</td>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="i in result">
-        <td>{{i.PARENT}}</td>
+        <td>{{i.GENDER}}</td>
+        <td>{{i.AVERAGE_DEATH}}</td>
       </tr>
     </tbody>
   </table>

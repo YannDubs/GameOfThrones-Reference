@@ -1,0 +1,14 @@
+<div>
+  <p>
+     Who is the character that was in the most episodes?
+  </p>
+  <button ng-click="submit_form()">Enter</button>
+</div>
+
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
+
+<div ng-show="show_result">
+  <div>{{result[0].NAME}} was in {{result[0].NUMBER_EPISODES}} episodes </div>
+</div>
