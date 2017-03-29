@@ -35,6 +35,7 @@ class DBConnector {
     $params = json_decode($postdata, true); // Decode the JSON into something PHP can handle
 
 		if (is_array($params)){
+			var_dump($params);
 			$need_defaults = array_diff_key($defaults, $params); // see if we can insert any supplied defaults
 
 	    $params = array_merge($params, $need_defaults);
