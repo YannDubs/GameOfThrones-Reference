@@ -80,6 +80,10 @@
        -moz-appearance:none;
             appearance:none;
 }
+input[type="radio"]{
+    visibility:hidden;
+}
+
 .arryn{background-image:url(../images/arryn.png);}
 .baelish{background-image:url(../images/baelish.png);}
 .baratheon{background-image:url(../images/baratheon.png);}

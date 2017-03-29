@@ -112,6 +112,110 @@ app.controller("AdminLoginController", function($scope, $http){
 
 });
 
+var name=false;
+var year_of_birth=false;
+var gender=false;
+var job=false;
+var first_appearance=false;
+var killer=false;
+var killed_in_season=false;
+var emptyCounts=0;
+var group="";
+var toSelect="";
+app.controller("SelectController", function($scope){ 
+   $scope.submit_form = function() {
+      if($scope.group !="arryn"
+          && $scope.group != "baelish"
+          && $scope.group != "baratheon"
+          && $scope.group != "greyjoy"
+          && $scope.group != "lannister"
+          && $scope.group != "nightswatch"
+          && $scope.group != "stark"
+          && $scope.group != "tully"
+          && $scope.group != "tyrell"){
+          $scope.postErrorMessage("Please select a group!");
+      }
+      else{
+        if($scope.attribute.value1 =="YES"){
+          name=true;
+          toSelect+="name,";
+        }
+        else{
+          emptyCounts++;
+          name=false;
+        }
+        if($scope.attribute.value2=="YES"){
+          year_of_birth=true;
+          toSelect+="year_of_birth,";
+        }
+        else{
+          year_of_birth=false;
+          emptyCounts++;
+        }
+        if($scope.attribute.value3=="YES"){
+          gender=true;
+          toSelect+="gender,";
+        }
+        else{
+          gender=false;
+          emptyCounts++;
+        }
+        if($scope.attribute.value4=="YES"){
+          job=true;
+          toSelect+="job,";
+        }
+        else{
+          job=false;
+          emptyCounts++;
+        }
+        if($scope.attribute.value5=="YES"){
+          first_appearance=true;
+          toSelect+="first_appearance,";
+        }
+        else{
+          first_appearance=false;
+          emptyCounts++;
+        }
+        if($scope.attribute.value6=="YES"){
+          killer=true;
+          toSelect+="killer,";
+        }
+        else{
+          killer=false;
+          emptyCounts++;
+        }
+        if($scope.attribute.value6=="YES"){
+          killed_in_season=true;
+          toSelect+="killed_in_season,";
+        }
+        else{
+          killed_in_season=false;
+          emptyCounts++;
+        }
+        if(emptyCounts==7){
+          $scope.postErrorMessage("Please select at least one attribute");
+          emptyCounts=0;
+        }else{
+          
+          group=$scope.group;
+          if(toSelect==""){
+            $scope.postErrorMessage("Please select at least one attribute");
+          }
+          //remove last coma of toSelect string
+          toSelect = toSelect.slice(0, -1);
+          alert(group);
+          alert(toSelect);
+          //Reinitialize variables
+          emptyCounts=0;
+          toSelect="";
+          group="";
+        }
+        
+      }  
+   };
+});
+
+
 app.controller("ContentController", function($scope){
 
   console.log($scope);
