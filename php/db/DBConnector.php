@@ -42,7 +42,7 @@ class DBConnector {
 	    $missing = array_diff($keys, array_keys($params));
 
 	    if (count($missing)){
-				throw new FailureException("Missing values for ( ". implode(", ", $missing) ." ) in query \"". $query ."\"");
+				throw new FailureException("Missing values for ( ". implode(", ", $missing) ." ) in query \\\"". $query ."\\\"");
 	    }
 
 			$stmt = oci_parse($this->conn, $query);
