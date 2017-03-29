@@ -132,7 +132,7 @@ app.controller("ContentController", function($scope){
 
   $scope.login = function(acct){
     $scope.account = acct;
-    $scope.postInfoMessage("You have successfully Logged In", (acct.isModerator == true)?"You are a moderator. You can have permissions to edit the data.":undefined);
+    $scope.postInfoMessage("You have successfully Logged In", (acct.ISMODERATOR == true)?"You are a moderator. You can have permissions to edit the data.":undefined);
   };
 
   $scope.logout = function(){
