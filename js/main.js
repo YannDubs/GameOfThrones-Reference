@@ -102,8 +102,7 @@ app.controller("AdminLoginController", function($scope, $http){
       } else if (res.data.error){
         the_scope.postErrorMessage(res.data.spoiler);
       } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query");
-          console.log(res);
+          the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
 
     }, function error(res){
@@ -111,7 +110,7 @@ app.controller("AdminLoginController", function($scope, $http){
       the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });
-  }  
+  }
 
 });
 
@@ -174,8 +173,7 @@ app.controller("SampleQController", function($scope, $http, $page){
       } else if (res.data.error){
         the_scope.postErrorMessage(res.data.spoiler);
       } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query");
-          console.log(res);
+          the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
 
     }, function error(res){
@@ -220,8 +218,7 @@ app.controller("ExploreGroupController", function($scope, $http, $page){
       } else if (res.data.error){
         the_scope.postErrorMessage(res.data.spoiler);
       } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query");
-          console.log(res);
+          the_scope.postErrorMessage("An unknown error was encountered when running this query",res.data);
       }
 
     }, function error(res){
@@ -267,8 +264,7 @@ app.controller("KilledController", function($scope, $http, $page){
       } else if (res.data.error){
         the_scope.postErrorMessage(res.data.spoiler);
       } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query");
-          console.log(res);
+          the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
 
     }, function error(res){
@@ -298,20 +294,22 @@ app.controller("LeaderOfGroupController", function($scope, $http, $page){
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
+    var the_scope = $scope;
+
     // send request to server
     $http.post("php/leader_of_group_q.php", {'name': $scope.name}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
-          $scope.show_loading = false; // hide loading div
-          $scope.show_result = true; // show result table
-          $scope.result = res.data.result; // populate result table
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
       } else if (res.data.spoiler){
-          $scope.postSpoilerMessage(res.data.spoiler);
+          the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
-        $scope.postErrorMessage(res.data.spoiler);
+        the_scope.postErrorMessage(res.data.spoiler);
       } else {
-          $scope.postErrorMessage("An unknown error was encountered when running this query");
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
           console.log(res);
       }
 
@@ -342,31 +340,30 @@ app.controller("OwnerOfPlaceController", function($scope, $http, $page){
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
+    var the_scope = $scope;
+
     // send request to server
     $http.post("php/owner_of_place.php", {'place': $scope.place}).then(function success(res){
       // when we get data back
 
-      // TODO: handle this
-      // if result
-        // if we get a valid result
-
-      $scope.show_loading = false; // hide loading div
-      $scope.show_result = true; // show result table
-      $scope.result = res.data.result; // populate result table
-
-      // else if spoiler
-        // if we get a spoiler, display the message
-      // else if error
-        // if we get an error, display the error
-      // else
-        // we shouldn't get this
-        // need to display an error
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.spoiler);
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
 
     }, function error(res){
-      // if there was an error establishing connection,
-      // display an error
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
     });
   }
 
 });
-
