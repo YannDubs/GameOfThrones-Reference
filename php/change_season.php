@@ -19,6 +19,8 @@ try {
 						"SET season = :newseason ".
 						"WHERE username = :currentuser");
 
+  echo json_encode(['result' => []]);
+
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
 }
