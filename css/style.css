@@ -161,9 +161,9 @@ input[type="radio"]{
   margin-bottom: 0px;
 }
 
-.alert-repeater:last-child .alert {
+/*.alert-repeater:last-child .alert {
   margin-bottom: 20px;
-}
+}*/
 
 .glyphicon.glyphicon-animate-spin {
     -webkit-animation: glyphicon-spin-r 2s infinite linear;
