@@ -129,6 +129,16 @@ app.controller("CoverPageController", function($scope, $page){
   $page.setTitle(""); // Set title
 });
 
+app.controller("SettingsController", function($scope){
+
+  $scope.selected_season = $scope.account.SEASON;
+
+  $scope.updateSeason = function(){
+    $scope.account.SEASON = $scope.selected_season;
+  };
+
+});
+
 app.controller("AdminLoginController", function($scope, $http){
 
   $scope.submit_login_form = function () {
@@ -207,15 +217,15 @@ app.controller("SelectController", function($scope,$http,$page){
         else{
           //Selection is ok
           group=$scope.group;
-          
-          $http.post("php/select_project_q.php", {'selectedGroup': group}).then(function success(res){        
-            
+
+          $http.post("php/select_project_q.php", {'selectedGroup': group}).then(function success(res){
+
             if (res.data.result){
-                $scope.show_loading = false; // hide loading div
-                $scope.show_result = true; // show result table
-               $scope.table=mapResultToTable(res.data.result);
-               selectedAttribute=[false,false,false,false,false,false,false];
-                group="";
+              $scope.show_loading = false; // hide loading div
+              $scope.show_result = true; // show result table
+              $scope.table=mapResultToTable(res.data.result);
+              selectedAttribute=[false,false,false,false,false,false,false];
+              group="";
                // $scope.result = res.data.result; // populate result table
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
@@ -227,18 +237,18 @@ app.controller("SelectController", function($scope,$http,$page){
             }
 
           }, function error(res){
-           //Reinitialize variables         
+           //Reinitialize variables
             selectedAttribute=[false,false,false,false,false,false,false];
             group="";
             the_scope.show_loading = false;
             the_scope.postErrorMessage("There was an exception", res.message);
             console.log(res);
-             
+
           });
-         
+
         }
-        
-      }  
+
+      }
    };
 });
 
@@ -250,10 +260,10 @@ function nothingSelected(){
   }
   return true;
 }
-function mapResultToTable(r){ 
-    if (r.length == 0) {     
-      return {header: [], rows: []};  
-    }          
+function mapResultToTable(r){
+    if (r.length == 0) {
+      return {header: [], rows: []};
+    }
     var allHeaders = Object.keys(r[0]);
     var headers =[];
     for(var i=0 ; i<allHeaders.length; i++){
@@ -261,9 +271,9 @@ function mapResultToTable(r){
         headers.push(allHeaders[i]);
       }
     }
-    var rows = []; 
-    for (var v of r){    
-      var row = []    
+    var rows = [];
+    for (var v of r){
+      var row = []
       for (var i = 0; i< allHeaders.length; i++){
             if(selectedAttribute[i]){
                 if(v[allHeaders[i]]==null){
@@ -271,14 +281,14 @@ function mapResultToTable(r){
                 }
                 else{
                   row.push(v[allHeaders[i]]);
-                }  
-              
-            }   
-      }   
-      rows.push(row);  
-    }   
-    return {header: headers, entries: rows}; 
 
+                }
+
+            }
+      }
+      rows.push(row);
+    }
+    return {header: headers, entries: rows};
 
 }
 
@@ -1046,5 +1056,3 @@ app.controller("youngestChildController", function($scope, $http, $page){
   }
 
 });
-
-
