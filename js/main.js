@@ -46,7 +46,7 @@ app.config(function($routeProvider) {
     })
     .when("/select_project", {
         templateUrl: "views/select_project.html",
-        controller: "ExploreGroupController",
+        controller: "SelectController",
         url: ""
     })
     .when("/killed", {
@@ -157,18 +157,16 @@ app.controller("AdminLoginController", function($scope, $http){
 
 });
 
-var name=false;
-var year_of_birth=false;
-var gender=false;
-var job=false;
-var first_appearance=false;
-var killer=false;
-var killed_in_season=false;
+
 var emptyCounts=0;
 var group="";
 var toSelect="";
-app.controller("SelectController", function($scope){ 
+app.controller("SelectController", function($scope,$http,$page){ 
+   $scope.show_result = false;
+   $scope.show_loading = false;
    $scope.submit_form = function() {
+        $scope.show_loading = true; // show loading div
+        $scope.show_result = false; // make sure result table is hidden
       if($scope.group !="arryn"
           && $scope.group != "baelish"
           && $scope.group != "baratheon"
@@ -182,78 +180,92 @@ app.controller("SelectController", function($scope){
       }
       else{
         if($scope.attribute.value1 =="YES"){
-          name=true;
           toSelect+="name,";
         }
         else{
           emptyCounts++;
-          name=false;
         }
         if($scope.attribute.value2=="YES"){
-          year_of_birth=true;
           toSelect+="year_of_birth,";
         }
-        else{
-          year_of_birth=false;
+        else{;
           emptyCounts++;
         }
         if($scope.attribute.value3=="YES"){
-          gender=true;
           toSelect+="gender,";
         }
         else{
-          gender=false;
           emptyCounts++;
         }
         if($scope.attribute.value4=="YES"){
-          job=true;
           toSelect+="job,";
         }
         else{
-          job=false;
           emptyCounts++;
         }
         if($scope.attribute.value5=="YES"){
-          first_appearance=true;
           toSelect+="first_appearance,";
         }
         else{
-          first_appearance=false;
           emptyCounts++;
         }
         if($scope.attribute.value6=="YES"){
-          killer=true;
           toSelect+="killer,";
         }
         else{
-          killer=false;
           emptyCounts++;
         }
-        if($scope.attribute.value6=="YES"){
-          killed_in_season=true;
+        if($scope.attribute.value6=="YES"){e;
           toSelect+="killed_in_season,";
         }
         else{
-          killed_in_season=false;
           emptyCounts++;
         }
+
         if(emptyCounts==7){
           $scope.postErrorMessage("Please select at least one attribute");
           emptyCounts=0;
-        }else{
-          
+        }
+        else{
+          //Selection is ok
           group=$scope.group;
           if(toSelect==""){
             $scope.postErrorMessage("Please select at least one attribute");
           }
           //remove last coma of toSelect string
           toSelect = toSelect.slice(0, -1);
-          alert(group);
           alert(toSelect);
-          //Reinitialize variables
+          the_scope=$scope;
+          $http.post("php/select_project_q.php", {'group': group}).then(function success(res){
           emptyCounts=0;
           toSelect="";
           group="";
+            alert(res.data.result);
+           //Reinitialize variables
+            if (res.data.result){
+                the_scope.show_loading = false; // hide loading div
+                the_scope.show_result = true; // show result table
+                the_scope.result = res.data.result; // populate result table
+            } else if (res.data.spoiler){
+                the_scope.postSpoilerMessage(res.data.spoiler);
+            } else if (res.data.error){
+              the_scope.postErrorMessage(res.data.error);
+
+            } else {
+                the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
+            }
+
+          }, function error(res){
+            //Reinitialize variables
+              emptyCounts=0;
+              toSelect="";
+              group="";
+            the_scope.show_loading = false;
+            the_scope.postErrorMessage("There was an exception", res.message);
+            console.log(res);
+             
+          });
+         
         }
         
       }  

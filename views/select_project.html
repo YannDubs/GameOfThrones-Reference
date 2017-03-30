@@ -1,47 +1,55 @@
 <!-- (1 point) Selection and projection query --> 
 <!-- provide an interface for the user to specify the selection condition and the attributes to be returned.-->
 
+<div>
+    <form name="groupAndAttributes" ng-controller="SelectController" ng-submit="submit_form()">
+        <legend>Choose a group:</legend>
+        <div class="cc-selector">
+            <input ng-model="group" id="arryn" type="radio" name="house" value="arryn" />
+            <label class="drinkcard-cc arryn" for="arryn"></label>
+            <input ng-model="group" id="baelish" type="radio" name="house" value="baelish" />
+            <label class="drinkcard-cc baelish" for="baelish"></label>
+            <input ng-model="group" id="baratheon" type="radio" name="house" value="baratheon" />
+            <label class="drinkcard-cc baratheon" for="baratheon"></label>
+            <input ng-model="group" id="greyjoy" type="radio" name="house" value="greyjoy" />
+            <label class="drinkcard-cc greyjoy" for="greyjoy"></label>
+            <input ng-model="group" id="lannister" type="radio" name="house" value="lannister" />
+            <label class="drinkcard-cc lannister" for="lannister"></label>
+            <input ng-model="group" id="nightswatch" type="radio" name="house" value="nightswatch" />
+            <label class="drinkcard-cc nightswatch" for="nightswatch"></label>
+            <input ng-model="group" id="stark" type="radio" name="house" value="stark" />
+            <label class="drinkcard-cc stark" for="stark"></label>
+            <input ng-model="group" id="tully" type="radio" name="house" value="tully" />
+            <label class="drinkcard-cc tully" for="tully"></label>
+            <input ng-model="group" id="tyrell" type="radio" name="house" value="tyrell" />
+            <label class="drinkcard-cc tyrell" for="tyrell"></label>
+        </div>
 
-<form name="groupAndAttributes" ng-controller="SelectController" ng-submit="submit_form()">
-    <legend>Choose a group:</legend>
-    <div class="cc-selector">
-        <input ng-model="group" id="arryn" type="radio" name="house" value="arryn" />
-        <label class="drinkcard-cc arryn" for="arryn"></label>
-        <input ng-model="group" id="baelish" type="radio" name="house" value="baelish" />
-        <label class="drinkcard-cc baelish" for="baelish"></label>
-        <input ng-model="group" id="baratheon" type="radio" name="house" value="baratheon" />
-        <label class="drinkcard-cc baratheon" for="baratheon"></label>
-        <input ng-model="group" id="greyjoy" type="radio" name="house" value="greyjoy" />
-        <label class="drinkcard-cc greyjoy" for="greyjoy"></label>
-        <input ng-model="group" id="lannister" type="radio" name="house" value="lannister" />
-        <label class="drinkcard-cc lannister" for="lannister"></label>
-        <input ng-model="group" id="nightswatch" type="radio" name="house" value="nightswatch" />
-        <label class="drinkcard-cc nightswatch" for="nightswatch"></label>
-        <input ng-model="group" id="stark" type="radio" name="house" value="stark" />
-        <label class="drinkcard-cc stark" for="stark"></label>
-        <input ng-model="group" id="tully" type="radio" name="house" value="tully" />
-        <label class="drinkcard-cc tully" for="tully"></label>
-        <input ng-model="group" id="tyrell" type="radio" name="house" value="tyrell" />
-        <label class="drinkcard-cc tyrell" for="tyrell"></label>
-    </div>
+        <div>
+            <legend>Choose attributes:</legend>
+            <input ng-model="attribute.value1" ng-true-value="'YES'" type="checkbox" name="attribute" id="name" value="name">
+            <label for="name">name</label><br/>
+            <input ng-model="attribute.value2" ng-true-value="'YES'" type="checkbox" name="attribute" id="year_of_birth" value="year_of_birth">
+            <label for="year_of_birth">year_of_birth</label><br/>
+            <input ng-model="attribute.value3" ng-true-value="'YES'" type="checkbox" name="attribute" id="gender" value="gender">
+            <label for="gender">gender</label><br/>
+            <input ng-model="attribute.value4" ng-true-value="'YES'" type="checkbox" name="attribute" id="job" value="job">
+            <label for="job">job</label><br/>
+            <input ng-model="attribute.value5" ng-true-value="'YES'" type="checkbox" name="attribute" id="first_appearance" value="first_appearance">
+            <label for="first_appearance">first_appearance</label><br/>
+            <input ng-model="attribute.value6"  ng-true-value="'YES'" type="checkbox" name="attribute" id="killer" value="killer">
+            <label for="killer">killer</label><br/>
+            <input ng-model="attribute.value7" ng-true-value="'YES'" type="checkbox" name="attribute" id="killed_in_season" value="killed_in_season">
+             <label for="killed_in_season">killed_in_season</label>
+        </div>
 
-    <div>
-        <legend>Choose attributes:</legend>
-        <input ng-model="attribute.value1" ng-true-value="'YES'" type="checkbox" name="attribute" id="name" value="name">
-        <label for="name">name</label><br/>
-        <input ng-model="attribute.value2" ng-true-value="'YES'" type="checkbox" name="attribute" id="year_of_birth" value="year_of_birth">
-        <label for="year_of_birth">year_of_birth</label><br/>
-        <input ng-model="attribute.value3" ng-true-value="'YES'" type="checkbox" name="attribute" id="gender" value="gender">
-        <label for="gender">gender</label><br/>
-        <input ng-model="attribute.value4" ng-true-value="'YES'" type="checkbox" name="attribute" id="job" value="job">
-        <label for="job">job</label><br/>
-        <input ng-model="attribute.value5" ng-true-value="'YES'" type="checkbox" name="attribute" id="first_appearance" value="first_appearance">
-        <label for="first_appearance">first_appearance</label><br/>
-        <input ng-model="attribute.value6"  ng-true-value="'YES'" type="checkbox" name="attribute" id="killer" value="killer">
-        <label for="killer">killer</label><br/>
-        <input ng-model="attribute.value7" ng-true-value="'YES'" type="checkbox" name="attribute" id="killed_in_season" value="killed_in_season">
-         <label for="killed_in_season">killed_in_season</label>
-    </div>
+        <button type="submit" >Get Info</button>
+    </form>
+</div>    
+<div ng-show="show_loading">
+  <p>Loading</p>
+</div>
 
-    <button type="submit" >Get Info</button>
-</form>
+<div ng-show="show_result">
+ <p>"hello"</p>
+</div>
