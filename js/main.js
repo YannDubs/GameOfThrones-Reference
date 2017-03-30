@@ -220,12 +220,11 @@ app.controller("SelectController", function($scope,$http,$page){
           $http.post("php/select_project_q.php", {'selectedGroup': group}).then(function success(res){
 
             if (res.data.result){
-                $scope.show_loading = false; // hide loading div
-                $scope.show_result = true; // show result table
-
-               $scope.table=mapResultToTable(res.data.result);
-               selectedAttribute=[false,false,false,false,false,false,false];
-                group="";
+              $scope.show_loading = false; // hide loading div
+              $scope.show_result = true; // show result table
+              $scope.table=mapResultToTable(res.data.result);
+              selectedAttribute=[false,false,false,false,false,false,false];
+              group="";
                // $scope.result = res.data.result; // populate result table
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
@@ -276,14 +275,18 @@ function mapResultToTable(r){
       var row = []
       for (var i = 0; i< allHeaders.length; i++){
             if(selectedAttribute[i]){
-              row.push(v[allHeaders[i]]);
+                if(v[allHeaders[i]]==null){
+                  row.push("Unknown");
+                }
+                else{
+                  row.push(v[allHeaders[i]]);
+                }
+
             }
       }
       rows.push(row);
     }
-
-    return {header: headers, rows: rows};
-
+    return {header: headers, entries: rows};
 
 }
 

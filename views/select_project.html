@@ -54,11 +54,11 @@
         <table>          
             <thead>               
                 <tr>                   
-                    <td ng-repeat="h in table.header">{{h}}</td>
+                    <th class="titles" ng-repeat="h in table.header">{{h}}</th>
                 </tr>          
             </thead>           
             <tbody>                
-                <tr ng-repeat="row in table.rows">                   
+                <tr ng-repeat="row in table.entries">                   
                     <td ng-repeat="i in row">{{i}}</td>               
                 </tr>           
             </tbody>       
