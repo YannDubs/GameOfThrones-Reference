@@ -162,6 +162,7 @@ var emptyCounts=0;
 var group="";
 var selectedAttribute=[false,false,false,false,false,false,false];
 app.controller("SelectController", function($scope,$http,$page){ 
+   $page.setTitle("Select Project"); // Set title
    $scope.show_result = false;
    $scope.show_loading = false;
    $scope.submit_form = function() {
@@ -275,7 +276,7 @@ function mapResultToTable(r){
             }   
       }   
       rows.push(row);  
-    }    
+    }   
     return {header: headers, entries: rows}; 
 
 
@@ -410,6 +411,30 @@ app.controller("ExploreGroupController", function($scope, $http, $page){
 
 });
 
+function printJson(r){ 
+    if (r.length == 0) {     
+      return {header: [], rows: []};  
+    }          
+    var headers = Object.keys(r[0]);
+    
+    var rows = []; 
+    for (var v of r){    
+      var row = []    
+      for (var i = 0; i< headers.length; i++){
+            
+                  row.push(v[headers[i]]);
+                
+              
+              
+      }   
+      rows.push(row);  
+    }  
+    alert(headers);
+    alert(rows); 
+    return {header: headers, entries: rows}; 
+
+}
+
 app.controller("KilledController", function($scope, $http, $page){
   $page.setTitle("Killed"); // Set title
 
@@ -439,6 +464,8 @@ app.controller("KilledController", function($scope, $http, $page){
           the_scope.show_loading = false; // hide loading div
           the_scope.show_result = true; // show result table
           the_scope.result = res.data.result; // populate result table
+          printJson(res.data.result);
+          
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){

@@ -59,7 +59,7 @@
             </thead>           
             <tbody>                
                 <tr ng-repeat="row in table.entries">                   
-                    <td ng-repeat="i in row">{{i}}</td>               
+                    <td ng-repeat="i in row track by $index">{{i}}</td>               
                 </tr>           
             </tbody>       
         </table>
