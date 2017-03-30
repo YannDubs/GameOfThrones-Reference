@@ -10,8 +10,9 @@
 </div>
 
 <div ng-show="show_result">
-  <span ng-show="!(result).length">Unknown</div>
-  <span ng-show="(result).length == '1'"> It was in season: {{result[0].KILLED_IN_SEASON}}</div>
+  <p ng-repeat="i in result.seasons">Killed in season {{i}}
+  	<p ng-repeat="j in result.names">{{j}}</p>
+  </p>	
 </div>
 
 	

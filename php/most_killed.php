@@ -15,7 +15,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT killed_in_season
+  $table = $conn->query("SELECT name,killed_in_season
 						FROM CharacterGoT
 						WHERE killed_in_season IN (SELECT query1.killed_in_season
 						FROM (SELECT killed_in_season, Count(*) AS order_count
