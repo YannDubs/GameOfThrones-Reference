@@ -9,5 +9,10 @@
     <option ng-selected="SEASON == 6" value="6">Season 6</option>
     <option ng-selected="SEASON == 7" value="7">Season 7</option>
   </select></p>
-  <button class="btn btn-secondary" ng-click="updateSeason()">Update</button>
+  <p>
+    <button name="updateSeason" class="btn btn-secondary" ng-click="updateSeason()">Update</button>
+    <label for="updateSeason" ng-if="loading">
+      <span class="glyphicon glyphicon-refresh glyphicon-animate-spin" style="margin-left: 10px;"></span>
+    </label>
+  </p>
 </div>

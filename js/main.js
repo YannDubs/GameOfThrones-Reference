@@ -125,16 +125,16 @@ app.controller("CoverPageController", function($scope, $page){
 });
 
 app.controller("SettingsController", function($scope, $http){
-
+  $scope.loading = false;
   $scope.selected_season = $scope.account.SEASON;
 
   $scope.updateSeason = function(){
-
+    $scope.loading = true;
     var the_scope = $scope;
 
     $http.post("php/change_season.php", {'newseason': $scope.selected_season, "currentuser": $scope.account.USERNAME}).then(function success(res){
       // when we get data back
-
+      the_scope.loading = false;
       if (res.data.result){
         the_scope.account.SEASON = the_scope.selected_season;
         the_scope.postInfoMessage("You've successfully updated your season to season " + the_scope.selected_season);
@@ -147,7 +147,7 @@ app.controller("SettingsController", function($scope, $http){
           console.log(res);
       }
     }, function error(res){
-      the_scope.show_loading = false;
+      the_scope.loading = false;
       the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });
@@ -158,8 +158,10 @@ app.controller("AdminLoginController", function($scope, $http){
 
   $scope.submit_login_form = function () {
     var the_scope = $scope;
+    $scope.loading = true;
     $http.post("php/login_q.php", {'userN': $scope.username_field, 'passW': $scope.password_field}).then(function success(res){
       // when we get data back
+
       if (res.data.result){
           if (res.data.result.length !== 1){
             the_scope.postErrorMessage("Invalid username or password");
@@ -174,7 +176,6 @@ app.controller("AdminLoginController", function($scope, $http){
           the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
       }
     }, function error(res){
-      the_scope.show_loading = false;
       the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });

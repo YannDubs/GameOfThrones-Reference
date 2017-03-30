@@ -13,7 +13,13 @@ header("Content-type:application/json"); // set file type to json!
 $conn = new DBConnector(); // Open a connection to the DB
 
 // gets resulting query array
-
+SELECT COUNT(*) "KILLED",
+  LISTAGG(name, ', ') WITHIN GROUP (ORDER BY NAME) "NAMES",
+  num "SEASON"
+  FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num
+  WHERE killed_in_season < (SELECT season FROM usersgot WHERE username = 'lotus')
+  GROUP BY killed_in_season
+  ORDER BY KILLED;
 try {
   $table = $conn->query("SELECT killed_in_season
 						FROM CharacterGoT
