@@ -137,7 +137,7 @@ app.controller("SettingsController", function($scope, $http){
 
     var the_scope = $scope;
 
-    $http.post("php/change_season.php", {'new_season': $scope.selected_season, "current_username": $scope.account.USERNAME}).then(function success(res){
+    $http.post("php/change_season.php", {'newseason': $scope.selected_season, "currentusername": $scope.account.USERNAME}).then(function success(res){
       // when we get data back
 
       if (res.data.result){

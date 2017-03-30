@@ -16,8 +16,8 @@ $conn = new DBConnector(); // Open a connection to the DB
 
 try {
   $table = $conn->query("UPDATE UsersGoT ".
-						"SET season = :new_season ".
-						"WHERE username = :current_user");
+						"SET season = :newseason ".
+						"WHERE username = :currentuser");
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
