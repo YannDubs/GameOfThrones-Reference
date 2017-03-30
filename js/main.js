@@ -167,15 +167,15 @@ app.controller("SelectController", function($scope,$http,$page){
    $scope.submit_form = function() {
         $scope.show_loading = true; // show loading div
         $scope.show_result = false; // make sure result table is hidden
-      if($scope.group !="arryn"
-          && $scope.group != "baelish"
-          && $scope.group != "baratheon"
-          && $scope.group != "greyjoy"
-          && $scope.group != "lannister"
-          && $scope.group != "nightswatch"
-          && $scope.group != "stark"
-          && $scope.group != "tully"
-          && $scope.group != "tyrell"){
+      if($scope.group !="Arryn"
+          && $scope.group != "Baelish"
+          && $scope.group != "Baratheon"
+          && $scope.group != "Greyjoy"
+          && $scope.group != "Lannister"
+          && $scope.group != "Nights Watch"
+          && $scope.group != "Stark"
+          && $scope.group != "Tully"
+          && $scope.group != "Tyrell"){
           $scope.postErrorMessage("Please select a group!");
       }
       else{
@@ -235,17 +235,17 @@ app.controller("SelectController", function($scope,$http,$page){
           //remove last coma of toSelect string
           toSelect = toSelect.slice(0, -1);
           alert(toSelect);
-          the_scope=$scope;
-          $http.post("php/select_project_q.php", {'group': group}).then(function success(res){
+          $http.post("php/select_project_q.php", {'groupfds': group}).then(function success(res){
+          //Reinitialize variables         
           emptyCounts=0;
           toSelect="";
           group="";
-            alert(res.data.result);
-           //Reinitialize variables
+            
             if (res.data.result){
-                the_scope.show_loading = false; // hide loading div
-                the_scope.show_result = true; // show result table
-                the_scope.result = res.data.result; // populate result table
+                alert("hello");
+                $scope.show_loading = false; // hide loading div
+                $scope.show_result = true; // show result table
+                $scope.result = res.data.result; // populate result table
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){

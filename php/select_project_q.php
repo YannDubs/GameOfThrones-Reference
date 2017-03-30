@@ -17,7 +17,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 try {
   $table = $conn->query("SELECT name,year_of_birth,gender,job,first_appearance,name_killer,killed_in_season 
   						FROM CharacterGoT
-  						WHERE name_group = :group");
+  						WHERE name_group = :groupfds");
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
