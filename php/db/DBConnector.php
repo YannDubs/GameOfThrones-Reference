@@ -16,9 +16,7 @@ class DBConnector {
 		}
 	}
 
-  // $conn->query("SELECT ....") = [] - parses a query
-	public function query($query, $defaults = []) {
-
+	private function execute_query($query, $defaults){ // returns statement handle, needs to be freed
 		preg_match_all("/:\w+/", $query, $keys); // get list of placeholders (pattern)
 
     $keys = array_map(function($v) { // transform to keys
@@ -58,6 +56,25 @@ class DBConnector {
 
 			oci_execute($stmt);
 
+			return $stmt;
+		} else {
+			throw new FailureException("POST-ed JSON data could not be parsed");
+		}
+	}
+
+	public function send($query, $defaults = []) { // for queries that dont have results
+
+			$stmt = $this->execute_query($query, $defaults);
+
+			oci_free_statement($stmt);
+
+	}
+
+  // $conn->query("SELECT ....") = [] - parses a query
+	public function query($query, $defaults = []) { // FOR SELECTS (queries that return results)
+
+			$stmt = $this->execute_query($query, $defaults);
+
 			$ret = [];
 
 			while (($row = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) != false) {
@@ -68,9 +85,6 @@ class DBConnector {
 
 			return $ret;
 
-		} else {
-			throw new FailureException("POST-ed JSON data could not be parsed");
-		}
 	}
 
 
