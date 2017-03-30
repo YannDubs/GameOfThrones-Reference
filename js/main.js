@@ -619,7 +619,7 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
       console.log(res);
     });
   }
-
+});
 
 app.controller("FirstAppearanceController", function($scope, $http, $page){
   $page.setTitle("First appearance"); // Set title
