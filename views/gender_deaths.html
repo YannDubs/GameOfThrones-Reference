@@ -1,27 +1,30 @@
-<div>
-    <p>
-      What is the percentage of death in men and women?
-    </p>
-  <button ng-click="submit_form()">Send</button>
-</div>
+<div class="view">  
+  <div class="inputBox">
+      <p>
+        What is the death percentage for men and women?
+      </p>
+    <button ng-click="submit_form()">Send</button>
+  </div>
+  <br/>
 
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+  <div ng-show="show_loading">
+    <p>Loading</p>
+  </div>
 
-<div ng-show="show_result">
-  <table>
-    <thead>
-      <tr>
-        <td>Gender</td>
-        <td>Percentage</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="i in result">
-        <td>{{i.GENDER}}</td>
-        <td>{{i.AVERAGE_DEATH}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div ng-show="show_result">
+    <table>
+      <thead>
+        <tr>
+          <th class="titles">Gender</td>
+          <th class="titles">Percentage</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in result">
+          <td>{{i.GENDER}}</td>
+          <td>{{(i.AVERAGE_DEATH | number : 2)*100}}%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>  

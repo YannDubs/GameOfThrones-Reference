@@ -1,17 +1,20 @@
-<div>
-  <p>
-    Does the owner of the place where <input type="text" ng-model="place" placeholder="place"> live aspire to the throne?
-  </p>
-  <button ng-click="submit_form()">Enter</button>
-</div>
+<div class="view">	
+	<div class="inputBox">
+	  <p>
+	    Does the owner of the place where <input type="text" ng-model="character" placeholder="Character"> live aspire to the throne?
+	  </p>
+	  <button ng-click="submit_form()">Enter</button>
+	</div>
 
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+	<div ng-show="show_loading">
+	  <p>Loading</p>
+	</div>
 
-<div ng-show="show_result">
-  <div ng-show="(result).length">The leader is {{result[0].NAME}}</div>
-  <div ng-show="(result).length">Aspires to throne : {{result[0].ASPIRES_TO_THRONE}}</div>
-  <div ng-show="!(result).length">Unknown</div>
+	<div class="resultBox" ng-show="show_result">
+		<div ng-show="(result).length"> The leader is {{result[0].NAME}}, 
+		   <span ng-show="result[0].ASPIRES_TO_THRONE == '1'"> and aspires to throne</span>
+		   <span ng-show="result[0].ASPIRES_TO_THRONE == '0'"> and doesn't aspire to throne</span>
+	  	</div>
+	  <div ng-show="!(result).length">Unknown</div>
+	</div>
 </div>
-

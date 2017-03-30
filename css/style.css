@@ -97,7 +97,7 @@ table{
 }
 
 .views{
-  background-image: url("images/background.jpeg");
+  background-color: red;
 }
 .cc-selector input{
     margin:0;padding:0;
