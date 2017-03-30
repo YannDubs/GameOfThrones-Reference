@@ -129,14 +129,34 @@ app.controller("CoverPageController", function($scope, $page){
   $page.setTitle(""); // Set title
 });
 
-app.controller("SettingsController", function($scope){
+app.controller("SettingsController", function($scope, $http){
 
   $scope.selected_season = $scope.account.SEASON;
 
   $scope.updateSeason = function(){
-    $scope.account.SEASON = $scope.selected_season;
-  };
 
+    var the_scope = $scope;
+
+    $http.post("php/change_season.php", {'season': $scope.selected_season, "user": $scope.account.USERNAME}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+        the_scope.account.SEASON = the_scope.selected_season;
+        the
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  };
 });
 
 app.controller("AdminLoginController", function($scope, $http){
@@ -171,8 +191,7 @@ app.controller("AdminLoginController", function($scope, $http){
 var emptyCounts=0;
 var group="";
 var selectedAttribute=[false,false,false,false,false,false,false];
-app.controller("SelectController", function($scope,$http,$page){ 
-   $page.setTitle("Select Project"); // Set title
+app.controller("SelectController", function($scope,$http,$page){
    $scope.show_result = false;
    $scope.show_loading = false;
    $scope.submit_form = function() {
@@ -226,14 +245,14 @@ app.controller("SelectController", function($scope,$http,$page){
               $scope.table=mapResultToTable(res.data.result);
               selectedAttribute=[false,false,false,false,false,false,false];
               group="";
-               // $scope.result = res.data.result; // populate result table
+              // $scope.result = res.data.result; // populate result table
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){
               the_scope.postErrorMessage(res.data.error);
 
             } else {
-                the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
+              the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
             }
 
           }, function error(res){
@@ -281,7 +300,6 @@ function mapResultToTable(r){
                 }
                 else{
                   row.push(v[allHeaders[i]]);
-
                 }
 
             }
@@ -421,30 +439,6 @@ app.controller("ExploreGroupController", function($scope, $http, $page){
 
 });
 
-function printJson(r){ 
-    if (r.length == 0) {     
-      return {header: [], rows: []};  
-    }          
-    var headers = Object.keys(r[0]);
-    
-    var rows = []; 
-    for (var v of r){    
-      var row = []    
-      for (var i = 0; i< headers.length; i++){
-            
-                  row.push(v[headers[i]]);
-                
-              
-              
-      }   
-      rows.push(row);  
-    }  
-    alert(headers);
-    alert(rows); 
-    return {header: headers, entries: rows}; 
-
-}
-
 app.controller("KilledController", function($scope, $http, $page){
   $page.setTitle("Killed"); // Set title
 
@@ -474,8 +468,6 @@ app.controller("KilledController", function($scope, $http, $page){
           the_scope.show_loading = false; // hide loading div
           the_scope.show_result = true; // show result table
           the_scope.result = res.data.result; // populate result table
-          printJson(res.data.result);
-          
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
