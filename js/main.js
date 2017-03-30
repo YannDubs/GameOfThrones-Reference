@@ -160,7 +160,7 @@ app.controller("AdminLoginController", function($scope, $http){
 
 var emptyCounts=0;
 var group="";
-var toSelect="";
+var selectedAttribute=[false,false,false,false,false,false,false];
 app.controller("SelectController", function($scope,$http,$page){ 
    $scope.show_result = false;
    $scope.show_loading = false;
@@ -180,72 +180,43 @@ app.controller("SelectController", function($scope,$http,$page){
       }
       else{
         if($scope.attribute.value1 =="YES"){
-          toSelect+="name,";
-        }
-        else{
-          emptyCounts++;
+          selectedAttribute[0] = true;
         }
         if($scope.attribute.value2=="YES"){
-          toSelect+="year_of_birth,";
-        }
-        else{;
-          emptyCounts++;
+          selectedAttribute[1] = true;
         }
         if($scope.attribute.value3=="YES"){
-          toSelect+="gender,";
-        }
-        else{
-          emptyCounts++;
+          selectedAttribute[2] = true;
         }
         if($scope.attribute.value4=="YES"){
-          toSelect+="job,";
-        }
-        else{
-          emptyCounts++;
+          selectedAttribute[3] = true;
         }
         if($scope.attribute.value5=="YES"){
-          toSelect+="first_appearance,";
-        }
-        else{
-          emptyCounts++;
+          selectedAttribute[4] = true;
         }
         if($scope.attribute.value6=="YES"){
-          toSelect+="killer,";
+          selectedAttribute[5] = true;
         }
-        else{
-          emptyCounts++;
+        if($scope.attribute.value7=="YES"){
+          selectedAttribute[6] = true;
         }
-        if($scope.attribute.value6=="YES"){e;
-          toSelect+="killed_in_season,";
-        }
-        else{
-          emptyCounts++;
-        }
-
-        if(emptyCounts==7){
+        if(nothingSelected()){
           $scope.postErrorMessage("Please select at least one attribute");
-          emptyCounts=0;
         }
         else{
           //Selection is ok
           group=$scope.group;
-          if(toSelect==""){
-            $scope.postErrorMessage("Please select at least one attribute");
-          }
-          //remove last coma of toSelect string
-          toSelect = toSelect.slice(0, -1);
-          alert(toSelect);
-          $http.post("php/select_project_q.php", {'groupfds': group}).then(function success(res){
-          //Reinitialize variables         
-          emptyCounts=0;
-          toSelect="";
-          group="";
+          
+          $http.post("php/select_project_q.php", {'selectedGroup': group}).then(function success(res){        
             
             if (res.data.result){
-                alert("hello");
                 $scope.show_loading = false; // hide loading div
                 $scope.show_result = true; // show result table
-                $scope.result = res.data.result; // populate result table
+               
+               $scope.table=mapResultToTable(res.data.result);
+               selectedAttribute=[false,false,false,false,false,false,false];
+                group="";
+               // $scope.result = res.data.result; // populate result table
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){
@@ -256,10 +227,9 @@ app.controller("SelectController", function($scope,$http,$page){
             }
 
           }, function error(res){
-            //Reinitialize variables
-              emptyCounts=0;
-              toSelect="";
-              group="";
+           //Reinitialize variables         
+            selectedAttribute=[false,false,false,false,false,false,false];
+            group="";
             the_scope.show_loading = false;
             the_scope.postErrorMessage("There was an exception", res.message);
             console.log(res);
@@ -272,6 +242,40 @@ app.controller("SelectController", function($scope,$http,$page){
    };
 });
 
+function nothingSelected(){
+  for(var b of selectedAttribute){
+    if(b){
+      return false;
+    }
+  }
+  return true;
+}
+function mapResultToTable(r){ 
+    if (r.length == 0) {     
+      return {header: [], rows: []};  
+    }          
+    var allHeaders = Object.keys(r[0]);
+    var headers =[];
+    for(var i=0 ; i<allHeaders.length; i++){
+      if(selectedAttribute[i]){
+        headers.push(allHeaders[i]);
+      }
+    }
+    var rows = []; 
+    for (var v of r){    
+      var row = []    
+      for (var i = 0; i< allHeaders.length; i++){
+            if(selectedAttribute[i]){
+              row.push(v[allHeaders[i]]);
+            }   
+      }    
+      rows.push(row);  
+    }     
+       
+    return {header: headers, rows: rows}; 
+
+
+}
 
 app.controller("ContentController", function($scope){
 

@@ -1,8 +1,8 @@
 <!-- (1 point) Selection and projection query --> 
 <!-- provide an interface for the user to specify the selection condition and the attributes to be returned.-->
 
-<div>
-    <form name="groupAndAttributes" ng-controller="SelectController" ng-submit="submit_form()">
+<div ng-controller="SelectController">
+    <form name="groupAndAttributes" ng-submit="submit_form()">
         <legend>Choose a group:</legend>
         <div class="cc-selector">
             <input ng-model="group" id="arryn" type="radio" name="house" value="Arryn" />
@@ -45,11 +45,24 @@
 
         <button type="submit" >Get Info</button>
     </form>
-</div>    
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+    <br/>
+    <div ng-show="show_loading">
+       <p>Loading</p>
+    </div>
 
-<div ng-show="show_result">
- <p>HIIIIIII</p>
-</div>
+    <div ng-show="show_result">
+        <table>          
+            <thead>               
+                <tr>                   
+                    <td ng-repeat="h in table.header">{{h}}</td>
+                </tr>          
+            </thead>           
+            <tbody>                
+                <tr ng-repeat="row in table.rows">                   
+                    <td ng-repeat="i in row">{{i}}</td>               
+                </tr>           
+            </tbody>       
+        </table>
+    </div>
+</div>    
+
