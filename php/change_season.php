@@ -15,14 +15,9 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->send("UPDATE UsersGoT ".
+  $conn->send("UPDATE UsersGoT ".
 						"SET season = :newseason ".
 						"WHERE username = :currentuser");
-
-  // $table = $conn->query("SELECT table_name FROM user_tables");
-
-  // convert PHP array to JSON and output
-  echo json_encode(["result" => $table]);
 
 } catch (ExceptionAsJSON $e){
   echo $e->toJSON();
