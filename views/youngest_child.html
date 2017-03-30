@@ -1,25 +1,31 @@
-<div>
-  <p>
-    Who had the youngest child?
-  </p>
-  <button ng-click="submit_form()">Enter</button>
-</div>
+<div class="view"> 
+  <div class="inputBox">
+    <p>
+      Who had a child at the youngest age?
+    </p>
+    <button ng-click="submit_form()">Enter</button>
+  </div>
+  <br/>
+  <div ng-show="show_loading">
+    <p>Loading</p>
+  </div>
 
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
-
-<div ng-show="show_result">
-  <table>
-    <thead>
-      <tr>
-        <td>Character</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="i in result">
-        <td>{{i.PARENT}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div ng-show="show_result">
+    <table>
+      <thead>
+        <tr>
+          <th class="titles">Parent</th>
+          <th class="titles">Child</th>
+          <th class="titles">At what age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="i in result">
+          <td>{{i.PARENT}}</td>
+          <td>{{i.CHILD}}</td>
+          <td>{{i.DIFFERENCE}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>  

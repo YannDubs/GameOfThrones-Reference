@@ -100,7 +100,7 @@ app.config(function($routeProvider) {
         url: ""
     })
     .when("/most_new_characters", {
-        templateUrl: "views/most_new_characters.html",
+        templateUrl: "views/newest_characters.html",
         controller: "MostNewCharactersController",
         url: ""
     })
@@ -183,7 +183,6 @@ app.controller("AdminLoginController", function($scope, $http){
 });
 
 
-var emptyCounts=0;
 var group="";
 var selectedAttribute=[false,false,false,false,false,false,false];
 app.controller("SelectController", function($scope,$http,$page){
@@ -434,6 +433,7 @@ app.controller("ExploreGroupController", function($scope, $http, $page){
 
 });
 
+
 app.controller("KilledController", function($scope, $http, $page){
   $page.setTitle("Killed"); // Set title
 
@@ -463,6 +463,7 @@ app.controller("KilledController", function($scope, $http, $page){
           the_scope.show_loading = false; // hide loading div
           the_scope.show_result = true; // show result table
           the_scope.result = res.data.result; // populate result table
+
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
@@ -528,7 +529,7 @@ app.controller("LeaderOfGroupController", function($scope, $http, $page){
 });
 
 app.controller("OwnerOfPlaceController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Owner of place"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -548,7 +549,7 @@ app.controller("OwnerOfPlaceController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/owner_of_place.php", {'place': $scope.place}).then(function success(res){
+    $http.post("php/owner_of_place.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -575,7 +576,7 @@ app.controller("OwnerOfPlaceController", function($scope, $http, $page){
 });
 
 app.controller("AgeOfDeathController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Age of death"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -621,7 +622,7 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
 });
 
 app.controller("FirstAppearanceController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("First appearance"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -668,7 +669,7 @@ app.controller("FirstAppearanceController", function($scope, $http, $page){
 });
 
 app.controller("GenderDeathsController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Gender death"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -715,7 +716,7 @@ app.controller("GenderDeathsController", function($scope, $http, $page){
 });
 
 app.controller("KilledYoungController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Killed young"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -762,7 +763,7 @@ app.controller("KilledYoungController", function($scope, $http, $page){
 });
 
 app.controller("MadeOrphanController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Made Orphan"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -809,7 +810,7 @@ app.controller("MadeOrphanController", function($scope, $http, $page){
 });
 
 app.controller("MostEpisodesController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Most Episode"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -856,7 +857,7 @@ app.controller("MostEpisodesController", function($scope, $http, $page){
 });
 
 app.controller("MostKilledController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Most killed"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -903,7 +904,7 @@ app.controller("MostKilledController", function($scope, $http, $page){
 });
 
 app.controller("MostNewCharactersController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Newest Character"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -923,7 +924,7 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/most_new_characters.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/newest_characters.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -950,7 +951,7 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
 });
 
 app.controller("youngestChildController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
+  $page.setTitle("Youngest child"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;

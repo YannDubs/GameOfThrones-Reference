@@ -1,20 +1,16 @@
-<div>
-    <p>
-      Which character killed someone (and who) that was less than 20?
-    </p>
-  <button ng-click="submit_form()">Send</button>
-</div>
+<div class="view">
+  <div class="inputBox">
+      <p>
+        Which characters killed someone that was less than 20?
+      </p>
+    <button ng-click="submit_form()">Send</button>
+  </div>
 
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+  <div ng-show="show_loading">
+    <p>Loading</p>
+  </div>
 
-<div ng-show="show_result">
-  <table>
-    <tbody>
-      <tr ng-repeat="i in result">
-        <td>{{i.NAME_KILLER}} killed {{i.NAME}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="resultBox" ng-show="show_result">
+   <p ng-repeat="i in result">{{i.NAME_KILLER}} killed {{i.NAME}}</p>      
+  </div>
 </div>

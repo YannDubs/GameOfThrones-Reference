@@ -15,6 +15,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
+
   $conn->send("UPDATE UsersGoT ".
 						"SET season = :newseason ".
 						"WHERE username = :currentuser");
