@@ -1,0 +1,14 @@
+<div ng-controller="SettingsController">
+  <p><label for="seasonSelect"> Current Season: </label>
+  <select name="seasonSelect" ng-model="selected_season">
+    <option ng-selected="SEASON == 1" value="1">Season 1</option>
+    <option ng-selected="SEASON == 2" value="2">Season 2</option>
+    <option ng-selected="SEASON == 3" value="3">Season 3</option>
+    <option ng-selected="SEASON == 4" value="4">Season 4</option>
+    <option ng-selected="SEASON == 5" value="5">Season 5</option>
+    <option ng-selected="SEASON == 6" value="6">Season 6</option>
+    <option ng-selected="SEASON == 7" value="7">Season 7</option>
+    <option ng-selected="SEASON == 8" value="8">Season 8</option>
+  </select></p>
+  <button class="btn btn-secondary" ng-click="updateSeason()">Update</button>
+</div>

@@ -58,6 +58,11 @@
 		     <input class="form-control" type="password" placeholder="Password" ng-model="password_field" style="width:50%;">
          <span class="input-group-btn">
            <button class="btn btn-secondary" ng-click="submit_login_form()">Sign in</button>
+           <button class="btn btn-secondary">
+             <a href="#!/register">
+               Register
+             </a>
+           </button>
          </span>
        </div>
       <div ng-if="account!=undefined" class="input-group" style="float:right;">
@@ -67,17 +72,15 @@
         <span class="input-group-addon" style="text-transform:capitalize;">
           {{account.USERNAME}}
         </span>
-        <span ng-if="account.ISMODERATOR == true"  class="input-group-addon">
-          <a href="#!/modsettings">
-            <span class="glyphicon glyphicon-wrench"></span>
-          </a>
-        </span>
-        <span class="input-group-addon">
-          <a uib-popover-template="'views/settings.html'" popover-title="Settings" popover-placement="auto bottom">
-            <span class="glyphicon glyphicon-cog"></span>
-          </a>
-        </span>
         <span class="input-group-btn">
+          <button class="btn btn-secondary" ng-if="account.ISMODERATOR == true">
+            <a href="#!/modsettings" >
+              <span class="glyphicon glyphicon-wrench"></span>
+            </a>
+          </button>
+          <button class="btn btn-secondary" uib-popover-template="'views/settings.html'" popover-title="Settings" popover-placement="auto bottom">
+            <span class="glyphicon glyphicon-cog"></span>
+          </button>
           <button class="btn btn-secondary" ng-click="logout()">Logout</button>
         </span>
       </div>
