@@ -41,7 +41,7 @@
 </div>
 
 <!-- content code -->
-<div id="content" ng-controller="ContentController">
+<div id="content" ng-controller="ContentController" class="container-fluid">
   <div id="sidebar-access" class="row">
     <div class="col-md-2">
       <span id="sidebar-button" onclick="openNav()">&#9776; Queries</span>
@@ -72,7 +72,7 @@
         </span>
         <span class="input-group-btn">
           <button class="btn btn-secondary" ng-if="account.ISMODERATOR == true">
-            <a href="#!/modsettings" >
+            <a href="" > <!-- "#!/modsettings" -->
               <span class="glyphicon glyphicon-wrench"></span>
             </a>
           </button>
