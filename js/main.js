@@ -142,7 +142,7 @@ app.controller("SettingsController", function($scope, $http){
 
       if (res.data.result){
         the_scope.account.SEASON = the_scope.selected_season;
-        the
+        the_scope.postInfoMessage("You've successfully updated your season to season " + the_scope.selected_season);
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
