@@ -39,29 +39,24 @@ app.run(function($rootScope, $page){
 app.config(function($routeProvider) {
    $routeProvider
     // <a href="#sample">link</a>
-    .when("/sample", {
-        templateUrl: "views/sample_q.html",
-        controller: "SampleQController",
-        url: ""
-    })
-    .when("/select_project", {
+    .when("/group_infos", {
         templateUrl: "views/select_project.html",
-        controller: "SelectController",
+        controller: "GroupInfosController",
         url: ""
     })
-    .when("/killed", {
-        templateUrl: "views/killed.html",
-        controller: "KilledController",
+    .when("/dead_character", {
+        templateUrl: "views/dead_character.html",
+        controller: "DeadCharacterController",
         url: ""
     })
-    .when("/leader_of_group", {
+    .when("/group_leader", {
         templateUrl: "views/leader_of_group.html",
-        controller: "LeaderOfGroupController",
+        controller: "GroupLeaderController",
         url: ""
     })
-    .when("/owner_of_place", {
+    .when("/place_owner", {
         templateUrl: "views/owner_of_place.html",
-        controller: "OwnerOfPlaceController",
+        controller: "PlaceOwnerController",
         url: ""
     })
     .when("/age_of_death", {
@@ -74,39 +69,39 @@ app.config(function($routeProvider) {
         controller: "FirstAppearanceController",
         url: ""
     })
-    .when("/gender_deaths", {
+    .when("/gender_death_stats", {
         templateUrl: "views/gender_deaths.html",
-        controller: "GenderDeathsController",
+        controller: "GenderDeathStatsController",
         url: ""
     })
-    .when("/killed_young", {
-        templateUrl: "views/killed_young.html",
-        controller: "KilledYoungController",
+    .when("/child_killers", {
+        templateUrl: "views/child_killer.html",
+        controller: "ChildKillersController",
         url: ""
     })
-    .when("/made_orphan", {
+    .when("/orphan_makers", {
         templateUrl: "views/made_orphan.html",
-        controller: "MadeOrphanController",
+        controller: "OrphanMakersController",
         url: ""
     })
-    .when("/most_episodes", {
+    .when("/most_appearances", {
         templateUrl: "views/most_episodes.html",
-        controller: "MostEpisodesController",
+        controller: "MostAppearancesController",
         url: ""
     })
-    .when("/most_killed", {
-        templateUrl: "views/most_killed.html",
-        controller: "MostKilledController",
+    .when("/bloody_season", {
+        templateUrl: "views/bloody_season.html",
+        controller: "BloodySeasonController",
         url: ""
     })
     .when("/most_new_characters", {
-        templateUrl: "views/newest_characters.html",
+        templateUrl: "views/most_new_characters.html",
         controller: "MostNewCharactersController",
         url: ""
     })
-    .when("/youngest_child", {
-        templateUrl: "views/youngest_child.html",
-        controller: "youngestChildController",
+    .when("/young_parents", {
+        templateUrl: "views/young_parents.html",
+        controller: "YoungParentsController",
         url: ""
     })
     // add more views here
@@ -184,7 +179,8 @@ app.controller("AdminLoginController", function($scope, $http){
 });
 
 
-app.controller("SelectController", function($scope,$http,$page){
+app.controller("GroupInfosController", function($scope,$http,$page){
+  $page.setTitle("Goup infos"); // Set title
    $scope.show_result = false;
    $scope.show_loading = false;
    $scope.selectedAttribute = [];
@@ -320,103 +316,10 @@ app.controller("ContentController", function($scope){
 
 });
 
-// Controller for SampleQ view
-app.controller("SampleQController", function($scope, $http, $page){
-  $page.setTitle("Sample"); // Set title
-
-  // default loading div and result table to hidden
-  $scope.show_loading = false;
-  $scope.show_result = false;
-
-  // submit function
-    // <... ng-click="submit_form()">
-  $scope.submit_form = function () {
-    // TODO: turn the hidden div's into Angular components
-      // error component
-      // spoiler component
-      // result table component
-
-    $scope.show_loading = true; // show loading div
-    $scope.show_result = false; // make sure result table is hidden
-
-    var the_scope = $scope;
-
-    // send request to server
-    $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
-      // when we get data back
-    the_scope.postErrorMessage("There was a problem.");
-
-      if (res.data.result){
-          the_scope.show_loading = false; // hide loading div
-          the_scope.show_result = true; // show result table
-          the_scope.result = res.data.result; // populate result table
-      } else if (res.data.spoiler){
-          the_scope.postSpoilerMessage(res.data.spoiler);
-      } else if (res.data.error){
-        the_scope.postErrorMessage(res.data.error);
-
-      } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query", res.data);
-      }
-
-    }, function error(res){
-      the_scope.show_loading = false;
-      the_scope.postErrorMessage("There was an exception", res.message);
-      console.log(res);
-    });
-  }
-
-});
-
-app.controller("ExploreGroupController", function($scope, $http, $page){
-  $page.setTitle("Select Project"); // Set title
-
-  // default loading div and result table to hidden
-  $scope.show_loading = false;
-  $scope.show_result = false;
-
-  // submit function
-    // <... ng-click="submit_form()">
-  $scope.submit_form = function () {
-    // TODO: turn the hidden div's into Angular components
-      // error component
-      // spoiler component
-      // result table component
-
-    $scope.show_loading = true; // show loading div
-    $scope.show_result = false; // make sure result table is hidden
-
-    var the_scope = $scope;
-
-    // send request to server
-    $http.post("php/sample_q.php", {'dad': $scope.dad_name}).then(function success(res){
-      // when we get data back
-
-      if (res.data.result){
-          the_scope.show_loading = false; // hide loading div
-          the_scope.show_result = true; // show result table
-          the_scope.result = res.data.result; // populate result table
-      } else if (res.data.spoiler){
-          the_scope.postSpoilerMessage(res.data.spoiler);
-      } else if (res.data.error){
-        the_scope.postErrorMessage(res.data.error);
-
-      } else {
-          the_scope.postErrorMessage("An unknown error was encountered when running this query",res.data);
-      }
-
-    }, function error(res){
-      the_scope.show_loading = false;
-      the_scope.postErrorMessage("There was an exception", res.message);
-      console.log(res);
-    });
-  }
-
-});
 
 
-app.controller("KilledController", function($scope, $http, $page){
-  $page.setTitle("Killed"); // Set title
+app.controller("DeadCharacterController", function($scope, $http, $page){
+  $page.setTitle("Dead Character"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -437,7 +340,7 @@ app.controller("KilledController", function($scope, $http, $page){
 
     var the_scope = $scope;
 
-    $http.post("php/killed_q.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/dead_character.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -463,8 +366,8 @@ app.controller("KilledController", function($scope, $http, $page){
 
 });
 
-app.controller("LeaderOfGroupController", function($scope, $http, $page){
-  $page.setTitle("Leader"); // Set title
+app.controller("GroupLeaderController", function($scope, $http, $page){
+  $page.setTitle("Group Leader"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -509,8 +412,8 @@ app.controller("LeaderOfGroupController", function($scope, $http, $page){
 
 });
 
-app.controller("OwnerOfPlaceController", function($scope, $http, $page){
-  $page.setTitle("Owner of place"); // Set title
+app.controller("PlaceOwnerController", function($scope, $http, $page){
+  $page.setTitle("Place Owner"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -649,7 +552,7 @@ app.controller("FirstAppearanceController", function($scope, $http, $page){
 
 });
 
-app.controller("GenderDeathsController", function($scope, $http, $page){
+app.controller("GenderDeathStatsController", function($scope, $http, $page){
   $page.setTitle("Gender death"); // Set title
 
   // default loading div and result table to hidden
@@ -696,8 +599,8 @@ app.controller("GenderDeathsController", function($scope, $http, $page){
 
 });
 
-app.controller("KilledYoungController", function($scope, $http, $page){
-  $page.setTitle("Killed young"); // Set title
+app.controller("ChildKillersController", function($scope, $http, $page){
+  $page.setTitle("Child killer"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -717,7 +620,7 @@ app.controller("KilledYoungController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/killed_young.php", {}).then(function success(res){
+    $http.post("php/child_killer.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -743,8 +646,8 @@ app.controller("KilledYoungController", function($scope, $http, $page){
 
 });
 
-app.controller("MadeOrphanController", function($scope, $http, $page){
-  $page.setTitle("Made Orphan"); // Set title
+app.controller("OrphanMakersController", function($scope, $http, $page){
+  $page.setTitle("Orphan maker"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -790,8 +693,8 @@ app.controller("MadeOrphanController", function($scope, $http, $page){
 
 });
 
-app.controller("MostEpisodesController", function($scope, $http, $page){
-  $page.setTitle("Most Episode"); // Set title
+app.controller("MostAppearancesController", function($scope, $http, $page){
+  $page.setTitle("Most Appearances"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -837,8 +740,8 @@ app.controller("MostEpisodesController", function($scope, $http, $page){
 
 });
 
-app.controller("MostKilledController", function($scope, $http, $page){
-  $page.setTitle("Most killed"); // Set title
+app.controller("BloodySeasonController", function($scope, $http, $page){
+  $page.setTitle("Bloody season"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -858,7 +761,7 @@ app.controller("MostKilledController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/most_killed.php", {}).then(function success(res){
+    $http.post("php/bloody_season.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -885,7 +788,7 @@ app.controller("MostKilledController", function($scope, $http, $page){
 });
 
 app.controller("MostNewCharactersController", function($scope, $http, $page){
-  $page.setTitle("Newest Character"); // Set title
+  $page.setTitle("Most new Characters"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -906,7 +809,7 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
 
     // send request to server
     //Delete content in {} if no objects needed
-    $http.post("php/newest_characters.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/most_new_characters.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -932,8 +835,8 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
 
 });
 
-app.controller("youngestChildController", function($scope, $http, $page){
-  $page.setTitle("Youngest child"); // Set title
+app.controller("YoungParentsController", function($scope, $http, $page){
+  $page.setTitle("Young parents"); // Set title
 
   // default loading div and result table to hidden
   $scope.show_loading = false;
@@ -953,7 +856,7 @@ app.controller("youngestChildController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/youngest_child.php", {}).then(function success(res){
+    $http.post("php/young_parents.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
