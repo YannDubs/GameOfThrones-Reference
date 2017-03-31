@@ -1,15 +1,23 @@
-<div>
-  <p>
-    In which season did were the most characters introduced?
-  </p>
-  <button ng-click="submit_form()">Enter</button>
-</div>
+<div class="view">	
+	<div class="inputBox">
+	  <p>
+	     In which season did most character appear?
+	  </p>
+	  <button ng-click="submit_form()">Enter</button>
+	</div>
 
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+	<div ng-show="show_loading">
+	  <p>Loading</p>
+	</div>
 
-<div ng-show="show_result">
-  <div ng-show="(result).length"> Season {{result[0].{{i.SEASON}}}} </div>
-  <div ng-show="!(result).length">Unknown</div>
-</div>
+	<div class="resultBox" ng-show="show_result">
+      <div ng-show="!(result).length">Unknown</div>
+	   <div ng-show="(result).length"> 
+	   		<label>Most appearences were in season : {{result[0].FIRST_APPEARANCE}}</label><br>
+	   		<label><u>The characters that appeared are the following:</u></label>
+	   		<ul ng-repeat="i in result">
+	   			<li>{{i.NAME}}</li>
+	   		</ul>
+	   </div>
+	</div>
+<div>	
