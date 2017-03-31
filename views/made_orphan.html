@@ -1,3 +1,4 @@
+<div class="view">  
   <div class="inputBox">
       <p>
         Which character killed all the parents of a child?
@@ -12,6 +13,7 @@
   <div class="resultBox" ng-show="show_result">
     <label><u>The killers are :</u></label>
     <ul>
-      <li ng-repeat="i in result">{{i.KILLER}}</li>
+      <li ng-repeat="i in result">{{i.KILLER}} who killed all the parents of {{i.CHILD}}</li>
     </ul>
   </div>
+</div>

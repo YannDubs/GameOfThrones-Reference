@@ -22,7 +22,7 @@ try {
 							"FROM LeaderGot l, PlaceGot p, CharacterGoT c ".
 							"WHERE c.name = :character AND p.name = c.place_of_living  AND l.name_group = p.name_group AND since_season < ( ".
 								"SELECT season ".
-								"FROM UsersGoT WHERE username = \"prof\" ".
+								"FROM UsersGoT WHERE username = 'prof' ".
 							")".
 						")");
   // $table = $conn->query("SELECT table_name FROM user_tables");

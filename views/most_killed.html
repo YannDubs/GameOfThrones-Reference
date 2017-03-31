@@ -4,15 +4,29 @@
   </p>
   <button ng-click="submit_form()">Enter</button>
 </div>
-
+<br/>
 <div ng-show="show_loading">
   <p>Loading</p>
 </div>
 
 <div ng-show="show_result">
-  <p ng-repeat="i in result.seasons">Killed in season {{i}}
-  	<p ng-repeat="j in result.names">{{j}}</p>
-  </p>	
+	<table>
+		<thead>
+			<tr>
+				<th class="titles">Season</th>
+				<th class="titles">How many died</th>
+				<th class="titles">People that died</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="i in result">
+				<td>{{i.KILLED_IN_SEASON}}</td>
+				<td>{{i.NRDEATH}}</td>
+				<td>{{i.NAME}}</td>
+			</tr>
+		</tbody>
+	</table>
+   
 </div>
 
 	

@@ -184,11 +184,51 @@ app.controller("AdminLoginController", function($scope, $http){
 });
 
 
-var group="";
-var selectedAttribute=[false,false,false,false,false,false,false];
 app.controller("SelectController", function($scope,$http,$page){
    $scope.show_result = false;
    $scope.show_loading = false;
+   $scope.selectedAttribute = [];
+
+   $scope.mapResultToTable = function(r){
+    if (r.length == 0) {
+      return {header: [], rows: []};
+    }
+    var allHeaders = Object.keys(r[0]);
+    var headers =[];
+    for(var i=0 ; i<allHeaders.length; i++){
+      if($scope.selectedAttribute[i]){
+        headers.push(allHeaders[i]);
+      }
+    }
+    var rows = [];
+    for (var v of r){
+      var row = []
+      for (var i = 0; i< allHeaders.length; i++){
+            if($scope.selectedAttribute[i]){
+                if(v[allHeaders[i]]==null){
+                  row.push("Unknown");
+                }
+                else{
+                  row.push(v[allHeaders[i]]);
+                }
+
+            }
+      }
+      rows.push(row);
+    }
+    return {header: headers, entries: rows};
+   }
+
+   $scope.nothingSelected = function(){
+    for(var b of $scope.selectedAttribute){
+      if(b){
+        return false;
+      }
+    }
+    return true;
+  }
+   
+
    $scope.submit_form = function() {
         $scope.show_loading = true; // show loading div
         $scope.show_result = false; // make sure result table is hidden
@@ -204,43 +244,23 @@ app.controller("SelectController", function($scope,$http,$page){
           $scope.postErrorMessage("Please select a group!");
       }
       else{
-        if($scope.attribute.value1 =="YES"){
-          selectedAttribute[0] = true;
-        }
-        if($scope.attribute.value2=="YES"){
-          selectedAttribute[1] = true;
-        }
-        if($scope.attribute.value3=="YES"){
-          selectedAttribute[2] = true;
-        }
-        if($scope.attribute.value4=="YES"){
-          selectedAttribute[3] = true;
-        }
-        if($scope.attribute.value5=="YES"){
-          selectedAttribute[4] = true;
-        }
-        if($scope.attribute.value6=="YES"){
-          selectedAttribute[5] = true;
-        }
-        if($scope.attribute.value7=="YES"){
-          selectedAttribute[6] = true;
-        }
-        if(nothingSelected()){
+        if($scope.nothingSelected()){
           $scope.postErrorMessage("Please select at least one attribute");
         }
         else{
           //Selection is ok
-          group=$scope.group;
+          var group=$scope.group;
+
+          var the_scope = $scope;
 
           $http.post("php/select_project_q.php", {'selectedGroup': group}).then(function success(res){
 
             if (res.data.result){
-              $scope.show_loading = false; // hide loading div
-              $scope.show_result = true; // show result table
-              $scope.table=mapResultToTable(res.data.result);
-              selectedAttribute=[false,false,false,false,false,false,false];
-              group="";
-              // $scope.result = res.data.result; // populate result table
+              the_scope.show_loading = false; // hide loading div
+              the_scope.show_result = true; // show result table
+              
+              the_scope.table= the_scope.mapResultToTable(res.data.result);
+              
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){
@@ -251,9 +271,6 @@ app.controller("SelectController", function($scope,$http,$page){
             }
 
           }, function error(res){
-           //Reinitialize variables
-            selectedAttribute=[false,false,false,false,false,false,false];
-            group="";
             the_scope.show_loading = false;
             the_scope.postErrorMessage("There was an exception", res.message);
             console.log(res);
@@ -266,44 +283,7 @@ app.controller("SelectController", function($scope,$http,$page){
    };
 });
 
-function nothingSelected(){
-  for(var b of selectedAttribute){
-    if(b){
-      return false;
-    }
-  }
-  return true;
-}
-function mapResultToTable(r){
-    if (r.length == 0) {
-      return {header: [], rows: []};
-    }
-    var allHeaders = Object.keys(r[0]);
-    var headers =[];
-    for(var i=0 ; i<allHeaders.length; i++){
-      if(selectedAttribute[i]){
-        headers.push(allHeaders[i]);
-      }
-    }
-    var rows = [];
-    for (var v of r){
-      var row = []
-      for (var i = 0; i< allHeaders.length; i++){
-            if(selectedAttribute[i]){
-                if(v[allHeaders[i]]==null){
-                  row.push("Unknown");
-                }
-                else{
-                  row.push(v[allHeaders[i]]);
-                }
 
-            }
-      }
-      rows.push(row);
-    }
-    return {header: headers, entries: rows};
-
-}
 
 app.controller("ContentController", function($scope){
 
@@ -690,7 +670,7 @@ app.controller("GenderDeathsController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/gender_deaths.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/gender_deaths.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -737,7 +717,7 @@ app.controller("KilledYoungController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/killed_young.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/killed_young.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -784,7 +764,7 @@ app.controller("MadeOrphanController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/made_orphan.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/made_orphan.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -831,7 +811,7 @@ app.controller("MostEpisodesController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/most_episodes.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/most_episodes.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -857,49 +837,6 @@ app.controller("MostEpisodesController", function($scope, $http, $page){
 
 });
 
-function mostKilledJsonProcessing(r){
-    if (r.length == 0) {
-      return {seasons: [], names: []};
-    }
-    var distinctSeasons=[];
-    var headers = Object.keys(r[0]);
-    for (var v of r){
-      var season=v[headers[1]];
-      if(!contains(distinctSeasons,season)){
-        distinctSeasons.push(season);
-      }
-    }
-    var namesAssociated=[];
-    for(var i=0;i<distinctSeasons.length;i++){
-      namesAssociated[i]=[];
-    }
-    for (var v of r){
-      var season=v[headers[1]];
-      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]); 
-    }
-    alert(namesAssociated[0]);
-    alert(namesAssociated[1]);
-    alert(distinctSeasons);
-    return {seasons: distinctSeasons, names: namesAssociated};
-}
-function getIndex(array,element){
-  for(var i=0; i< array.length;i++){
-    alert
-    if(array[i]==element){
-      return i;
-    }
-  }
-  return -1;
-}
-function contains(array,element){
-  for(var e of array){
-    if(e==element){
-      return true;
-    }
-  }
-  return false;
-}
-
 app.controller("MostKilledController", function($scope, $http, $page){
   $page.setTitle("Most killed"); // Set title
 
@@ -921,13 +858,13 @@ app.controller("MostKilledController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/most_killed.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/most_killed.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){
           the_scope.show_loading = false; // hide loading div
           the_scope.show_result = true; // show result table
-          the_scope.result = mostKilledJsonProcessing(res.data.result); // populate result table
+          the_scope.result = res.data.result; // populate result table
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
@@ -968,6 +905,7 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
+    //Delete content in {} if no objects needed
     $http.post("php/newest_characters.php", {'character': $scope.character}).then(function success(res){
       // when we get data back
 
@@ -1015,7 +953,7 @@ app.controller("youngestChildController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/youngest_child.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/youngest_child.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){

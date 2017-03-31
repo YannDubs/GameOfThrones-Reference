@@ -15,7 +15,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT DISTINCT character.name_killer AS killer
+  $table = $conn->query("SELECT DISTINCT character.name_killer AS killer, child.name AS child
 						FROM ChildrenGot child, CharacterGoT character
 						WHERE character.name IN (child.name_father, child.name_mother) AND character.name_killer IS NOT NULL AND character.killed_in_season < (
 						SELECT season FROM UsersGoT WHERE username = 'prof'
