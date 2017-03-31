@@ -857,6 +857,49 @@ app.controller("MostEpisodesController", function($scope, $http, $page){
 
 });
 
+function mostKilledJsonProcessing(r){
+    if (r.length == 0) {
+      return {seasons: [], names: []};
+    }
+    var distinctSeasons=[];
+    var headers = Object.keys(r[0]);
+    for (var v of r){
+      var season=v[headers[1]];
+      if(!contains(distinctSeasons,season)){
+        distinctSeasons.push(season);
+      }
+    }
+    var namesAssociated=[];
+    for(var i=0;i<distinctSeasons.length;i++){
+      namesAssociated[i]=[];
+    }
+    for (var v of r){
+      var season=v[headers[1]];
+      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]); 
+    }
+    alert(namesAssociated[0]);
+    alert(namesAssociated[1]);
+    alert(distinctSeasons);
+    return {seasons: distinctSeasons, names: namesAssociated};
+}
+function getIndex(array,element){
+  for(var i=0; i< array.length;i++){
+    alert
+    if(array[i]==element){
+      return i;
+    }
+  }
+  return -1;
+}
+function contains(array,element){
+  for(var e of array){
+    if(e==element){
+      return true;
+    }
+  }
+  return false;
+}
+
 app.controller("MostKilledController", function($scope, $http, $page){
   $page.setTitle("Most killed"); // Set title
 
@@ -884,7 +927,7 @@ app.controller("MostKilledController", function($scope, $http, $page){
       if (res.data.result){
           the_scope.show_loading = false; // hide loading div
           the_scope.show_result = true; // show result table
-          the_scope.result = res.data.result; // populate result table
+          the_scope.result = mostKilledJsonProcessing(res.data.result); // populate result table
       } else if (res.data.spoiler){
           the_scope.postSpoilerMessage(res.data.spoiler);
       } else if (res.data.error){
