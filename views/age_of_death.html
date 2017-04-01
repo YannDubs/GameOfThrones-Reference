@@ -1,8 +1,8 @@
 <div>
-	<h1 id="viewTitle">Age of death</h1>
-	<button uib-popover-template="'views/sqlpop.html'"  popover-placement="left" popover-trigger="'click'" class="btn btn-info">
-		<span class="glyphicon glyphicon-info-sign"></span>
-	</button>	
+<h1 id="viewTitle">Age of death</h1>
+	<button uib-popover-template="'views/sqlpop.html'" popover-class="sql-popover" popover-placement="auto bottom-right" popover-trigger="'mouseenter'" class="btn btn-info">
+	<span class="glyphicon glyphicon-info-sign"></span>
+	</button>
 	<hr/>
 	<div class="inputBox">
 	  <p>
@@ -20,5 +20,3 @@
 	  <div ng-show="!(result).length">Unknown</div>
 	</div>
 </div>
-
-

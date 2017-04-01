@@ -228,7 +228,7 @@ app.controller("GroupInfosController", function($scope,$http,$page){
     }
     return true;
   }
-   
+
 
    $scope.submit_form = function() {
         $scope.show_loading = true; // show loading div
@@ -259,9 +259,9 @@ app.controller("GroupInfosController", function($scope,$http,$page){
             if (res.data.result){
               the_scope.show_loading = false; // hide loading div
               the_scope.show_result = true; // show result table
-              
+
               the_scope.table= the_scope.mapResultToTable(res.data.result);
-              
+
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){
@@ -292,6 +292,57 @@ app.controller("ContentController", function($scope){
 
   $scope.alerts = [];
   $scope.account = undefined;
+
+  $scope.SQLPrettify = function(q) { // takes a query and turns it into an array that angular will like;
+    var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR"];
+    var q_parts = [];
+
+    var indent = 0;
+    var s = 0;
+    for (var i = 0; i<q.length; i++){
+      var c = q.charAt(i);
+      if (c === "("){
+        i++;
+        q_parts.push({str: q.slice(s,i), indent: indent});
+        indent++;
+        s = i;
+      }else if (c === ")"){
+        q_parts.push({str: q.slice(s,i), indent: indent});
+        indent--;
+        s = i;
+      }
+    }
+
+    q_parts.push({str: q.slice(s,i), indent: indent});
+
+    for (var keyword of keywords) {
+
+      q_parts = q_parts.reduce(function(acc,cur){
+        var i = 1;
+        var idx = [0];
+
+        var v;
+        while ((v = cur.str.indexOf(keyword, i)) > 0) {
+          idx.push(v);
+          i = v + 1;
+        }
+
+        idx.push(cur.str.length);
+
+        for (var s = 0; s < idx.length - 1; s++){
+          var c = cur.str.slice(idx[s], idx[s+1]).trim();
+          if (c.length > 0)
+            acc.push({str: c, indent: cur.indent})
+        }
+
+        return acc;
+
+      }, []);
+
+    }
+    console.log(q_parts);
+    return q_parts;
+  };
 
   $scope.postErrorMessage = function(s,d){
     $scope.alerts.push({type: "error", message: s, details: d});
@@ -512,10 +563,10 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age"
-            +"FROM CharacterGoT c, SeasonGot s"
-            +"WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ("
-            +"SELECT season FROM UsersGoT WHERE username = 'prof')";
+  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age " +
+            "FROM CharacterGoT c, SeasonGot s " +
+            "WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ( " +
+            "SELECT season FROM UsersGoT WHERE username = 'prof')";
 
   // submit function
     // <... ng-click="submit_form()">
@@ -802,6 +853,52 @@ app.controller("MostAppearancesController", function($scope, $http, $page){
   }
 
 });
+
+function mostKilledJsonProcessing(r){
+    if (r.length == 0) {
+      return {seasons: [], names: []};
+    }
+    var distinctSeasons=[];
+    var headers = Object.keys(r[0]);
+    for (var v of r){
+      var season=v[headers[1]];
+      if(!contains(distinctSeasons,season)){
+        distinctSeasons.push(season);
+      }
+    }
+    var namesAssociated=[];
+    for(var i=0;i<distinctSeasons.length;i++){
+      namesAssociated[i]=[];
+    }
+    for (var v of r){
+      var season=v[headers[1]];
+      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]);
+    }
+    alert(namesAssociated[0]);
+    alert(namesAssociated[1]);
+    alert(distinctSeasons);
+    return {seasons: distinctSeasons, names: namesAssociated};
+}
+function getIndex(array,element){
+  for(var i=0; i< array.length;i++){
+    alert
+    if(array[i]==element){
+      return i;
+    }
+  }
+  return -1;
+}
+function contains(array,element){
+  for(var e of array){
+    if(e==element){
+      return true;
+    }
+  }
+  return false;
+}
+//
+// app.controller("MostKilledController", function($scope, $http, $page){
+//   $page.setTitle("Most killed"); // Set title
 
 app.controller("BloodySeasonController", function($scope, $http, $page){
   $page.setTitle("Bloody season"); // Set title

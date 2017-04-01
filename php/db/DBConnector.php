@@ -50,11 +50,23 @@ class DBConnector {
 
 			$stmt = oci_parse($this->conn, $query);
 
-			foreach($params as $k=>$v){
-				oci_bind_by_name($stmt, ":".$k, $params[$k]);
+			if(($err = oci_error($stmt))){
+				throw new FailureException ( $err['message'] );
 			}
 
-			oci_execute($stmt);
+			foreach($params as $k=>$v){
+				oci_bind_by_name($stmt, ":".$k, $params[$k]);
+
+				if(($err = oci_error($stmt))){
+					throw new FailureException ( $err['message'] );
+				}
+			}
+
+			@oci_execute($stmt);
+
+			if(($err = oci_error($stmt))){
+				throw new FailureException ( $err['message'] );
+			}
 
 			return $stmt;
 		} else {

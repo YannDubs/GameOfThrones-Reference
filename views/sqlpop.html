@@ -1,5 +1,5 @@
-<div ng-if="queries">
-	<p>{{queries}}</p>
+<div ng-if="queries" ng-init="pretty_queries = SQLPrettify(queries)">
+	<p style="padding-left: {{item.indent}}em" ng-repeat="item in pretty_queries track by $index">{{item.str}}</p>
 </div>
 <div ng-if="!queries">
 	<p><i>No Queries Used</i></p>

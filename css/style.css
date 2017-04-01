@@ -6,6 +6,10 @@ body{
   background-color:black;
 }
 
+.ng-scope {
+  position: relative;
+}
+
 #sidebar {
   height: 100%;
   width: 300px;
@@ -48,18 +52,16 @@ body{
   color:#0B2161;
   font-weight:bold;
   text-align:center;
-  display:inline-block;
-  vertical-align: middle; 
-  float:center;
+  vertical-align: middle;
 }
 .inputBox{
-  margin-top:80px;
+  margin-top:10px;
 }
 
 .btn.btn-info{
-  float:right;
-  display:inline-block;
-
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .resultBox{
   margin-top:10px;
@@ -217,6 +219,10 @@ input[type="radio"]{
         -webkit-transform: rotate(359deg);
         transform: rotate(359deg);
     }
+}
+
+.popover.sql-popover {
+  max-width: 800px;
 }
 
 
