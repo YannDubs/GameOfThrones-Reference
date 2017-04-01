@@ -25,6 +25,7 @@ body{
   border-bottom-right-radius: 10px;
 }
 
+
 #sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -40,8 +41,25 @@ body{
   font-weight:bold;
 }
 
+
+#viewTitle{
+  margin-top:3px;
+  font-size:24px;
+  color:#0B2161;
+  font-weight:bold;
+  text-align:center;
+  display:inline-block;
+  vertical-align: middle; 
+  float:center;
+}
+.inputBox{
+  margin-top:80px;
+}
+
 .btn.btn-info{
   float:right;
+  display:inline-block;
+
 }
 .resultBox{
   margin-top:10px;

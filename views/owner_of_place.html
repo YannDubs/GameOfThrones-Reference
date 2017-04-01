@@ -1,10 +1,12 @@
 <div>
+	<h1 id="viewTitle">Owner of place</h1>
 	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
 		<span class="glyphicon glyphicon-info-sign"></span>
 	</button>
+	<hr/>
 	<div class="inputBox">
 	  <p>
-	    Does the owner of the place where <input type="text" ng-model="character" placeholder="Character"> live aspire to the throne?
+	    Does the owner of the place where <input type="text" ng-model="character" placeholder="Character"> live want to seize the throne?
 	  </p>
 	  <button ng-click="submit_form()">Enter</button>
 	</div>
@@ -15,8 +17,8 @@
 
 	<div class="resultBox" ng-show="show_result">
 		<div ng-show="(result).length"> The leader is {{result[0].NAME}}, 
-		   <span ng-show="result[0].ASPIRES_TO_THRONE == '1'"> and aspires to throne</span>
-		   <span ng-show="result[0].ASPIRES_TO_THRONE == '0'"> and doesn't aspire to throne</span>
+		   <span ng-show="result[0].ASPIRES_TO_THRONE == '1'"> and wants to seize the throne</span>
+		   <span ng-show="result[0].ASPIRES_TO_THRONE == '0'"> and doesn't want to seize the throne</span>
 	  	</div>
 	  <div ng-show="!(result).length">Unknown</div>
 	</div>
