@@ -15,8 +15,8 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT DISTINCT killed_in_season , name_killer ".
-						"FROM CharacterGoT, UsersGoT ".
+  $table = $conn->query("SELECT killed_in_season , name_killer ".
+						"FROM CharacterGoT ".
 						"WHERE name = :character ".
 						"AND killed_in_season IS NOT NULL AND name_killer IS NOT NULL" );
 

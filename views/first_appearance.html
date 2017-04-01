@@ -1,3 +1,4 @@
+<div>
 	<div class="inputBox">
 	  <p>
 	    What season did <input type="text" ng-model="character" placeholder="Character"> first appear?
@@ -11,5 +12,6 @@
 
 	<div class="resultBox" ng-show="show_result">
 	  <div ng-show="(result).length">This character first appeared in season {{result[0].FIRST_APPEARANCE}}</div>
-	  <div ng-show="!(result).length">Unknown</div>
+	  <div ng-show="!(result).length">This character didn't appear yet</div>
 	</div>
+</div>

@@ -1,3 +1,7 @@
+<div>
+	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
+		<span class="glyphicon glyphicon-info-sign sql-info"></span>
+	</button>
 	<div class="inputBox">
 	  <p>
 	    How old was <input type="text" ng-model="character" placeholder="Character"> when he died?
@@ -13,3 +17,6 @@
 	  <div ng-show="(result).length">The character died at the age of {{result[0].AGE}}</div>
 	  <div ng-show="!(result).length">Unknown</div>
 	</div>
+</div>
+
+

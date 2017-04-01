@@ -36,6 +36,9 @@ html, body, #content {
   font-weight:bold;
 }
 
+.btn.btn-info{
+  float:right;
+}
 .resultBox{
   margin-top:10px;
   font-weight:bold;

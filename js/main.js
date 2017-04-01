@@ -286,6 +286,7 @@ app.controller("ContentController", function($scope){
   console.log($scope);
 
   $scope.alerts = [];
+  $scope.queries = [];
   $scope.account = undefined;
 
   $scope.postErrorMessage = function(s,d){
@@ -465,6 +466,7 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = ["SELECT your, mom FROM largepeople","UPDATE mydick"];
 
   // submit function
     // <... ng-click="submit_form()">
@@ -620,7 +622,7 @@ app.controller("ChildKillersController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/child_killer.php", {}).then(function success(res){
+    $http.post("php/child_killer.php", {'age': $scope.age}).then(function success(res){
       // when we get data back
 
       if (res.data.result){

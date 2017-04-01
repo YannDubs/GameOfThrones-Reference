@@ -17,7 +17,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 try {
   $table = $conn->query("SELECT name_killer, name
 						FROM CharacterGoT, SeasonGoT
-						WHERE name_killer IS NOT NULL AND killed_in_season = num AND year_of_birth > (approx_year - 20) AND killed_in_season < (
+						WHERE name_killer IS NOT NULL AND killed_in_season = num AND year_of_birth > (approx_year - :age) AND killed_in_season < (
 						SELECT season FROM UsersGoT WHERE username = 'prof'
 						)" );
 

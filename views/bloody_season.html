@@ -1,32 +1,34 @@
 <div>
-  <p>
-    In which season did most character die?
-  </p>
-  <button ng-click="submit_form()">Enter</button>
-</div>
-<br/>
-<div ng-show="show_loading">
-  <p>Loading</p>
-</div>
+	<div>
+	  <p>
+	    In which season did most character die?
+	  </p>
+	  <button ng-click="submit_form()">Enter</button>
+	</div>
+	<br/>
+	<div ng-show="show_loading">
+	  <p>Loading</p>
+	</div>
 
-<div ng-show="show_result">
-	<table>
-		<thead>
-			<tr>
-				<th class="titles">Season</th>
-				<th class="titles">How many died</th>
-				<th class="titles">People that died</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="i in result">
-				<td>{{i.KILLED_IN_SEASON}}</td>
-				<td>{{i.NRDEATH}}</td>
-				<td>{{i.NAME}}</td>
-			</tr>
-		</tbody>
-	</table>
-   
-</div>
+	<div ng-show="show_result">
+		<table>
+			<thead>
+				<tr>
+					<th class="titles">Season</th>
+					<th class="titles">How many died</th>
+					<th class="titles">People that died</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="i in result">
+					<td>{{i.SEASON}}</td>
+					<td>{{i.KILLED}}</td>
+					<td>{{i.NAMES}}</td>
+				</tr>
+			</tbody>
+		</table>
+	   
+	</div>
+</div>	
 
 	

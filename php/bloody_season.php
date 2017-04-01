@@ -13,25 +13,10 @@ header("Content-type:application/json"); // set file type to json!
 $conn = new DBConnector(); // Open a connection to the DB
 
 try {
-  $table = $conn->query("SELECT LISTAGG(name, ', ') WITHIN GROUP (ORDER BY name) AS NAME,killed_in_season,COUNT(name) AS NRDEATH
-						FROM CharacterGoT
-						WHERE killed_in_season IN (SELECT query1.killed_in_season
-						FROM (SELECT killed_in_season, Count(*) AS order_count
-						      FROM CharacterGoT c
-							WHERE c.killed_in_season IS NOT NULL AND c.killed_in_season <  (
-								SELECT season FROM UsersGoT WHERE username = 'lotus'
-								)
-						      GROUP BY c.killed_in_season
-						      ) query1,
-						     (SELECT max(query2.order_count) AS highest_count
-						      FROM (SELECT killed_in_season, Count(*) AS order_count
-						            FROM CharacterGoT c
-							    WHERE c.killed_in_season IS NOT NULL AND c.killed_in_season <  (
-								SELECT season FROM UsersGoT WHERE username = 'lotus'
-								)
-						            GROUP BY c.killed_in_season) query2) query3
-						WHERE query1.order_count = query3.highest_count)
-  						GROUP BY killed_in_season");
+  $table = $conn->query("SELECT COUNT(c.killed_in_season) AS KILLED,  LISTAGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS NAMES,  s.num AS SEASON  
+  						FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num  
+  						WHERE s.num < (SELECT season FROM usersgot WHERE username = 'lotus') 
+  						 GROUP BY s.num");
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
