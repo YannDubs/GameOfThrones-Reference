@@ -16,7 +16,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 
 try {
 
-  $conn->send("UPDATE CharacterGoT SET year_of_birth = 400 WHERE username = 'guest'");
+  $conn->send("UPDATE CharacterGoT SET year_of_birth = 400");
 
   $table = [];
   // //$table = $conn->query("SELECT username, isModerator, season ".
