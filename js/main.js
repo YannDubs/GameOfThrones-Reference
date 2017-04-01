@@ -157,7 +157,7 @@ app.controller("ModeratorController", function($scope, $http){
   $scope.resetDB = function () {
     if (confirm('Any changes in the current schema will be lost, and all tables will be restored to their initial values. You will be automatically logged out to perform this operation. Are you sure?')) {
       var the_scope = $scope;
-      
+
       $http.post("php/login_q.php",{}).then(
         function success(res){
           the_scope.postInfoMessage("Database reset. Logging out...");
