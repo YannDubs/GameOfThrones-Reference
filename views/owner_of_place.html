@@ -1,9 +1,9 @@
 <div>
 	<h1 id="viewTitle">Owner of place</h1>
-	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
-		<span class="glyphicon glyphicon-info-sign"></span>
-	</button>
-	<hr/>
+	<button uib-popover-template="'views/sqlpop.html'" popover-class="sql-popover" popover-placement="auto bottom-right" popover-trigger="'mouseenter'" class="btn btn-info">
+    <span class="glyphicon glyphicon-info-sign"></span>
+    </button>
+	<hr class="viewHr"/>
 	<div class="inputBox">
 	  <p>
 	    Does the owner of the place where <input type="text" ng-model="character" placeholder="Character"> live want to seize the throne?

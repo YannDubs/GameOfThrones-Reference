@@ -216,6 +216,9 @@ app.controller("GroupInfosController", function($scope,$http,$page){
   $page.setTitle("Goup infos"); // Set title
    $scope.show_result = false;
    $scope.show_loading = false;
+   $scope.queries = "SELECT name,year_of_birth,gender,job,first_appearance,name_killer,killed_in_season "
+              +"FROM CharacterGoT "
+              +"WHERE name_group = :selectedGroup"
    $scope.selectedAttribute = [];
 
    $scope.mapResultToTable = function(r){
@@ -322,7 +325,7 @@ app.controller("ContentController", function($scope){
   $scope.account = undefined;
 
   $scope.SQLPrettify = function(q) { // takes a query and turns it into an array that angular will like;
-    var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR"];
+    var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR", "GROUP BY", "ORDER BY", "MINUS"];
     var q_parts = [];
 
     var indent = 0;
@@ -408,7 +411,10 @@ app.controller("DeadCharacterController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-
+  $scope.queries = "SELECT killed_in_season , name_killer "+
+            "FROM CharacterGoT "+
+            "WHERE name = :character "+
+            "AND killed_in_season IS NOT NULL AND name_killer IS NOT NULL" 
   // submit function
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
@@ -456,6 +462,12 @@ app.controller("GroupLeaderController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT name, aspires_to_throne "+
+            "FROM LeaderGot "+
+            "WHERE name_group = :name AND since_season = ( "+
+            "SELECT max(since_season ) "+
+            "FROM LeaderGot "+
+            "WHERE name_group = :name AND since_season < (SELECT season FROM UsersGoT WHERE username = 'prof'))"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -502,7 +514,12 @@ app.controller("GroupDeadController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-
+  $scope.queries = "SELECT name"+
+            "FROM GroupGot g"+
+            "WHERE NOT EXISTS ("+
+            "(SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name)"+
+            "MINUS"+
+            "(SELECT name FROM CharacterGoT WHERE name_killer IS NOT NULL))"
   // submit function
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
@@ -544,6 +561,16 @@ app.controller("PlaceOwnerController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT l.name AS name, l.aspires_to_throne AS aspires_to_throne "+
+            "FROM LeaderGot l, PlaceGot p, CharacterGoT c "+
+            "WHERE c.name = :character AND p.name = c.place_of_living  AND l.name_group = p.name_group AND  l.since_season = ( "+
+              "SELECT max(l.since_season ) "+
+              "FROM LeaderGot l, PlaceGot p, CharacterGoT c "+
+              "WHERE c.name = :character AND p.name = c.place_of_living  AND l.name_group = p.name_group AND since_season < ( "+
+                "SELECT season "+
+                "FROM UsersGoT WHERE username = 'prof' "+
+              ")"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -591,10 +618,11 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age " +
+  
+  $scope.queries="SELECT  s.approx_year - c.year_of_birth AS age " +
             "FROM CharacterGoT c, SeasonGot s " +
             "WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ( " +
-            "SELECT season FROM UsersGoT WHERE username = 'prof')";
+            "SELECT season FROM UsersGoT WHERE username = 'prof')"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -641,6 +669,11 @@ app.controller("FirstAppearanceController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT first_appearance"+
+            "FROM CharacterGoT"+
+            "WHERE name = :character AND first_appearance < ("+
+            "SELECT season FROM UsersGoT WHERE username = 'prof'"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -688,6 +721,16 @@ app.controller("GenderDeathStatsController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT query1.gender AS gender, query1.deathCount / query2.totalCount AS average_death"+
+            "FROM"+
+            "(SELECT gender, COUNT(*) AS deathCount"+
+            "FROM CharacterGoT"+
+            "WHERE killed_in_season IS NOT NULL"+
+            "GROUP BY gender) query1,"+
+            "(SELECT gender, COUNT(*) AS totalCount"+
+            "FROM CharacterGoT"+
+            "GROUP BY gender) query2"+
+            "WHERE query1.gender = query2.gender"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -735,6 +778,11 @@ app.controller("ChildKillersController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT name_killer, name"+
+            "FROM CharacterGoT, SeasonGoT"+
+            "WHERE name_killer IS NOT NULL AND killed_in_season = num AND year_of_birth > (approx_year - :age) AND killed_in_season < ("+
+            "SELECT season FROM UsersGoT WHERE username = 'prof'"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -794,6 +842,11 @@ app.controller("OrphanMakersController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT DISTINCT character.name_killer AS killer, child.name AS child"+
+            "FROM ChildrenGot child, CharacterGoT character"+
+            "WHERE character.name IN (child.name_father, child.name_mother) AND character.name_killer IS NOT NULL AND character.killed_in_season < ("+
+            "SELECT season FROM UsersGoT WHERE username = 'prof'"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -841,6 +894,12 @@ app.controller("MostAppearancesController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT name, number_episodes"+
+            "FROM CharacterGoT"+
+            "WHERE number_episodes = ("+
+            "SELECT MAX(number_episodes)"+
+            "FROM CharacterGoT"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
@@ -882,51 +941,7 @@ app.controller("MostAppearancesController", function($scope, $http, $page){
 
 });
 
-function mostKilledJsonProcessing(r){
-    if (r.length == 0) {
-      return {seasons: [], names: []};
-    }
-    var distinctSeasons=[];
-    var headers = Object.keys(r[0]);
-    for (var v of r){
-      var season=v[headers[1]];
-      if(!contains(distinctSeasons,season)){
-        distinctSeasons.push(season);
-      }
-    }
-    var namesAssociated=[];
-    for(var i=0;i<distinctSeasons.length;i++){
-      namesAssociated[i]=[];
-    }
-    for (var v of r){
-      var season=v[headers[1]];
-      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]);
-    }
-    alert(namesAssociated[0]);
-    alert(namesAssociated[1]);
-    alert(distinctSeasons);
-    return {seasons: distinctSeasons, names: namesAssociated};
-}
-function getIndex(array,element){
-  for(var i=0; i< array.length;i++){
-    alert
-    if(array[i]==element){
-      return i;
-    }
-  }
-  return -1;
-}
-function contains(array,element){
-  for(var e of array){
-    if(e==element){
-      return true;
-    }
-  }
-  return false;
-}
-//
-// app.controller("MostKilledController", function($scope, $http, $page){
-//   $page.setTitle("Most killed"); // Set title
+
 
 app.controller("BloodySeasonController", function($scope, $http, $page){
   $page.setTitle("Bloody season"); // Set title
@@ -934,14 +949,14 @@ app.controller("BloodySeasonController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT COUNT(c.killed_in_season) AS KILLED,  LISTAGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS NAMES,  s.num AS SEASON "+
+              "FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num"+
+              "WHERE s.num < (SELECT season FROM usersgot WHERE username = 'lotus')"+ 
+               "GROUP BY s.num"
 
   // submit function
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
-    // TODO: turn the hidden div's into Angular components
-      // error component
-      // spoiler component
-      // result table component
 
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
@@ -981,14 +996,21 @@ app.controller("MostNewCharactersController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT name, first_appearance"+
+            "FROM CharacterGoT"+
+            "WHERE first_appearance= (SELECT query1.first_appearance"+
+            "FROM (SELECT first_appearance, Count(*) AS order_count"+
+                  "FROM CharacterGoT c"+
+                  "GROUP BY c.first_appearance) query1,"+
+                 "(SELECT max(query2.order_count) AS highest_count"+
+                  "FROM (SELECT first_appearance, Count(*) AS order_count"+
+                        "FROM CharacterGoT c"+
+                        "GROUP BY c.first_appearance) query2) query3"+
+            "WHERE query1.order_count = query3.highest_count)"
 
   // submit function
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
-    // TODO: turn the hidden div's into Angular components
-      // error component
-      // spoiler component
-      // result table component
 
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
@@ -1029,6 +1051,13 @@ app.controller("YoungParentsController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
+  $scope.queries = "SELECT characterParent.name AS parent,characterChild.name AS child, characterChild.year_of_birth - characterParent.year_of_birth AS difference"+
+            "FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild"+
+            "WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name AND ( characterChild.year_of_birth - characterParent.year_of_birth ) = ("+
+            "SELECT  MIN(characterChild.year_of_birth - characterParent.year_of_birth) AS min"+
+            "FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild"+
+            "WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name"+
+            ")"
 
   // submit function
     // <... ng-click="submit_form()">
