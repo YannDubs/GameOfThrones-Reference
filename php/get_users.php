@@ -15,10 +15,9 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = [];
-  // //$table = $conn->query("SELECT username, isModerator, season ".
-	// 					"FROM UsersGoT ".
-	// 					"WHERE username = :userN AND password = :passW");
+  $table = $conn->query("SELECT username, isModerator".
+						"FROM UsersGoT ".
+						"WHERE username <> :userN"); // get all other user
 
   // returns a list of all users
 
