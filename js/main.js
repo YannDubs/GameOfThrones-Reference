@@ -286,7 +286,6 @@ app.controller("ContentController", function($scope){
   console.log($scope);
 
   $scope.alerts = [];
-  $scope.queries = [];
   $scope.account = undefined;
 
   $scope.postErrorMessage = function(s,d){
@@ -466,7 +465,10 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-  $scope.queries = ["SELECT your, mom FROM largepeople","UPDATE mydick"];
+  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age"
+            +"FROM CharacterGoT c, SeasonGot s"
+            +"WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ("
+            +"SELECT season FROM UsersGoT WHERE username = 'prof')";
 
   // submit function
     // <... ng-click="submit_form()">

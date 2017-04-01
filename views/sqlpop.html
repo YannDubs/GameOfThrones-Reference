@@ -1,6 +1,6 @@
-<div ng-if="queries.length !== 0">
-	<p class="query-example" ng-repeat="item in queries">{{item}}</p>
+<div ng-if="queries">
+	<p>{{queries}}</p>
 </div>
-<div ng-if="queries.length === 0">
-	<p class="query-example"><i>No Queries Used</i></p>
+<div ng-if="!queries">
+	<p><i>No Queries Used</i></p>
 </div>

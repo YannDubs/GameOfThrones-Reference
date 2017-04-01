@@ -2,6 +2,10 @@ html, body, #content {
   height: 100%;
 }
 
+body{
+  background-color:black;
+}
+
 #sidebar {
   height: 100%;
   width: 300px;

@@ -1,7 +1,7 @@
-<!-- (1 point) Selection and projection query --> 
-<!-- provide an interface for the user to specify the selection condition and the attributes to be returned.-->
-
 <div ng-controller="GroupInfosController">
+    <button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
+        <span class="glyphicon glyphicon-info-sign"></span>
+    </button>
     <form name="groupAndAttributes" ng-submit="submit_form()">
         <legend>Choose a group:</legend>
         <div class="cc-selector">
