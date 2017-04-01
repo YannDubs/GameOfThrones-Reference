@@ -186,9 +186,9 @@ app.controller("ModeratorController", function($scope, $http){
     $http.post("php/update_constraint.php",{}).then(
       function success(res){
         if (res.data.result) {
-
+          the_scope.postErrorMessage("Update Constraint Test failed");
         } else if (res.data.error){
-
+          the_scope.postInfoMessage("Update Constraint Test successfully run", res.data.error);
         }
         console.log(res);
       },
@@ -203,7 +203,9 @@ app.controller("ModeratorController", function($scope, $http){
     $http.post("php/delete_constraint.php",{}).then(
       function success(res){
         if (res.data.result) {
+          the_scope.postErrorMessage("Delete Constraint Test failed");
         } else if (res.data.error){
+          the_scope.postInfoMessage("Delete Constraint Test successfully run", res.data.error);
         }
         console.log(res);
 
@@ -219,9 +221,9 @@ app.controller("ModeratorController", function($scope, $http){
     $http.post("php/cascade_delete.php",{}).then(
       function success(res){
         if (res.data.result) {
-
+          the_scope.postInfoMessage("Cascade Delete Successfully run", "The database has been aultered. May need to reset to work properly");
         } else if (res.data.error){
-
+          the_scope.postErrorMessage(res.data.error);
         }
         console.log(res);
 
@@ -749,7 +751,7 @@ app.controller("FirstAppearanceController", function($scope, $http, $page){
 
     var params = {'character': $scope.character};
     if ($scope.account) params['userN'] = $scope.account.USERNAME;
-      
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
