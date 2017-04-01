@@ -164,7 +164,7 @@ app.controller("ModeratorController", function($scope, $http){
     if (confirm('Any changes in the current schema will be lost, and all tables will be restored to their initial values. You will be automatically logged out to perform this operation. Are you sure?')) {
       var the_scope = $scope;
 
-      $http.post("/reset_db.php",{}).then(
+      $http.post("php/reset_db.php",{}).then(
         function success(res){
           if (res.data.result) {
             the_scope.postInfoMessage("Database reset. Logging out...");
@@ -414,7 +414,7 @@ app.controller("DeadCharacterController", function($scope, $http, $page){
   $scope.queries = "SELECT killed_in_season , name_killer "+
             "FROM CharacterGoT "+
             "WHERE name = :character "+
-            "AND killed_in_season IS NOT NULL AND name_killer IS NOT NULL" 
+            "AND killed_in_season IS NOT NULL AND name_killer IS NOT NULL"
   // submit function
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
@@ -618,7 +618,7 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-  
+
   $scope.queries="SELECT  s.approx_year - c.year_of_birth AS age " +
             "FROM CharacterGoT c, SeasonGot s " +
             "WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ( " +
@@ -951,7 +951,7 @@ app.controller("BloodySeasonController", function($scope, $http, $page){
   $scope.show_result = false;
   $scope.queries = "SELECT COUNT(c.killed_in_season) AS KILLED,  LISTAGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS NAMES,  s.num AS SEASON "+
               "FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num"+
-              "WHERE s.num < (SELECT season FROM usersgot WHERE username = 'lotus')"+ 
+              "WHERE s.num < (SELECT season FROM usersgot WHERE username = 'lotus')"+
                "GROUP BY s.num"
 
   // submit function
