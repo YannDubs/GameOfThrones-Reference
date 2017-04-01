@@ -104,6 +104,11 @@ app.config(function($routeProvider) {
         controller: "YoungParentsController",
         url: ""
     })
+     .when("/group_dead", {
+        templateUrl: "views/group_dead.html",
+        controller: "GroupDeadController",
+        url: ""
+    })
     // add more views here
     // default to the coverpage
     .otherwise({
@@ -388,6 +393,48 @@ app.controller("GroupLeaderController", function($scope, $http, $page){
 
     // send request to server
     $http.post("php/leader_of_group_q.php", {'name': $scope.name}).then(function success(res){
+      // when we get data back
+
+      if (res.data.result){
+          the_scope.show_loading = false; // hide loading div
+          the_scope.show_result = true; // show result table
+          the_scope.result = res.data.result; // populate result table
+      } else if (res.data.spoiler){
+          the_scope.postSpoilerMessage(res.data.spoiler);
+      } else if (res.data.error){
+        the_scope.postErrorMessage(res.data.error);
+      } else {
+          the_scope.postErrorMessage("An unknown error was encountered when running this query");
+          console.log(res);
+      }
+
+    }, function error(res){
+      the_scope.show_loading = false;
+      the_scope.postErrorMessage("There was an exception", res.message);
+      console.log(res);
+    });
+  }
+
+});
+
+app.controller("GroupDeadController", function($scope, $http, $page){
+  $page.setTitle("Dead Group"); // Set title
+
+  // default loading div and result table to hidden
+  $scope.show_loading = false;
+  $scope.show_result = false;
+
+  // submit function
+    // <... ng-click="submit_form()">
+  $scope.submit_form = function () {
+
+    $scope.show_loading = true; // show loading div
+    $scope.show_result = false; // make sure result table is hidden
+
+    var the_scope = $scope;
+
+    // send request to server
+    $http.post("php/group_dead.php", {}).then(function success(res){
       // when we get data back
 
       if (res.data.result){

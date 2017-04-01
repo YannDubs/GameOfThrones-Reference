@@ -1,0 +1,27 @@
+<div>
+	<h1 id="viewTitle">Group where everybody got killed</h1>
+	<button uib-popover-template="'views/sqlpop.html'"  popover-placement="left" popover-trigger="'click'" class="btn btn-info">
+		<span class="glyphicon glyphicon-info-sign"></span>
+	</button>	
+	<hr/>
+	<div class="inputBox">
+	  <p>
+	    What group saw everybody get killed?
+	  </p>
+	  <button ng-click="submit_form()">Enter</button>
+	</div>
+
+	<div ng-show="show_loading">
+	  <p>Loading</p>
+	</div>
+
+	<div class="resultBox" ng-show="show_result">
+	  <div ng-show="(result).length">
+		  <label><u>The groups where everybody got killed are:</u></label>
+		  <ul ng-repeat="i in result">
+		  	<li>{{i.NAME}}</li>
+		  </ul>	
+	  </div>
+	  <div ng-show="!(result).length">No groups!</div>
+	</div>
+</div>
