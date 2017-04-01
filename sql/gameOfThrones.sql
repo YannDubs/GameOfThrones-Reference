@@ -706,5 +706,5 @@ FROM GroupGot g
 WHERE NOT EXISTS (
 (SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name)
 MINUS
-(SELECT name FROM CharacterGoT WHERE name_killer IS NOT NULL));
+(SELECT name FROM CharacterGoT WHERE killed_in_season IS NOT NULL AND killed_in_season < (SELECT season FROM UsersGoT WHERE username = 'prof')));
 */
