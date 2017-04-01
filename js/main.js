@@ -164,10 +164,15 @@ app.controller("ModeratorController", function($scope, $http){
     if (confirm('Any changes in the current schema will be lost, and all tables will be restored to their initial values. You will be automatically logged out to perform this operation. Are you sure?')) {
       var the_scope = $scope;
 
-      $http.post("php/login_q.php",{}).then(
+      $http.post("/reset_db.php",{}).then(
         function success(res){
-          the_scope.postInfoMessage("Database reset. Logging out...");
-          the_scope.logout();
+          if (res.data.result) {
+            the_scope.postInfoMessage("Database reset. Logging out...");
+            the_scope.logout();
+          } else if (res.data.error){
+            the_scope.postErrorMessage(res.data.error);
+          }
+
         },
         function failure(res){
           the_scope.postErrorMessage("There was an exception", res.message);
