@@ -6,6 +6,10 @@ body{
   background-color:black;
 }
 
+.ng-scope {
+  position: relative;
+}
+
 #sidebar {
   height: 100%;
   width: 300px;
@@ -25,6 +29,7 @@ body{
   border-bottom-right-radius: 10px;
 }
 
+
 #sidebar a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
@@ -40,8 +45,23 @@ body{
   font-weight:bold;
 }
 
+
+#viewTitle{
+  margin-top:3px;
+  font-size:24px;
+  color:#0B2161;
+  font-weight:bold;
+  text-align:center;
+  vertical-align: middle;
+}
+.inputBox{
+  margin-top:10px;
+}
+
 .btn.btn-info{
-  float:right;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .resultBox{
   margin-top:10px;

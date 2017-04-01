@@ -668,7 +668,19 @@ app.controller("ChildKillersController", function($scope, $http, $page){
       // error component
       // spoiler component
       // result table component
-
+      
+    if(isNaN($scope.age)){
+      $scope.postErrorMessage("Please enter a Number !");
+      return;
+    }
+    else if($scope.age % 1 != 0){
+      $scope.postErrorMessage("Please enter an integer");
+      return;
+    }
+    else if($scope.age < 0){
+      $scope.postErrorMessage("Please enter a positive integer");
+      return;
+    }
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
