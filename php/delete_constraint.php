@@ -16,10 +16,10 @@ $conn = new DBConnector(); // Open a connection to the DB
 
 try {
 
-  $conn->send("DELETE FROM SeasonGoT WHERE num = 4");
+  $conn->send("DELETE FROM groupGot WHERE name = 'Stark'");
 
   $table = [];
-  
+
   echo json_encode(["result" => []]);
 
 } catch (ExceptionAsJSON $e){

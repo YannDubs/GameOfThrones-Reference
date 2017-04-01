@@ -16,7 +16,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 
 try {
 
-  $conn->send("DELETE FROM groupGot WHERE name = 'Stark'");
+  $conn->send("DELETE FROM SeasonGoT WHERE num = 4");
 
   $table = [];
   // //$table = $conn->query("SELECT username, isModerator, season ".
