@@ -10,21 +10,6 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 
-// sql Stuff
-
-function SQLPrettify(q){
-  var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR"];
-  var indent_level = 0;
-  var q_parts = [q];
-
-  for (var keyword in keywords){
-    var i = 0;
-
-  }
-
-  return q_parts;
-}
-
 // Angular Stuff
 // Create Angular Module
 var app = angular.module('GoT_Reference', ["ngRoute","ui.bootstrap"]);
@@ -302,6 +287,57 @@ app.controller("ContentController", function($scope){
 
   $scope.alerts = [];
   $scope.account = undefined;
+
+  $scope.SQLPrettify = function(q) { // takes a query and turns it into an array that angular will like;
+    var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR"];
+    var q_parts = [];
+
+    var indent = 0;
+    var s = 0;
+    for (var i = 0; i<q.length; i++){
+      var c = q.charAt(i);
+      if (c === "("){
+        i++;
+        q_parts.push({str: q.slice(s,i), indent: indent});
+        indent++;
+        s = i;
+      }else if (c === ")"){
+        q_parts.push({str: q.slice(s,i), indent: indent});
+        indent--;
+        s = i;
+      }
+    }
+
+    q_parts.push({str: q.slice(s,i), indent: indent});
+
+    for (var keyword of keywords) {
+
+      q_parts = q_parts.reduce(function(acc,cur){
+        var i = 1;
+        var idx = [0];
+
+        var v;
+        while ((v = cur.str.indexOf(keyword, i)) > 0) {
+          idx.push(v);
+          i = v + 1;
+        }
+
+        idx.push(cur.str.length);
+
+        for (var s = 0; s < idx.length - 1; s++){
+          var c = cur.str.slice(idx[s], idx[s+1]).trim();
+          if (c.length > 0)
+            acc.push({str: c, indent: cur.indent})
+        }
+
+        return acc;
+
+      }, []);
+
+    }
+    console.log(q_parts);
+    return q_parts;
+  };
 
   $scope.postErrorMessage = function(s,d){
     $scope.alerts.push({type: "error", message: s, details: d});
