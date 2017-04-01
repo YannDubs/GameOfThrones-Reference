@@ -30,12 +30,13 @@ season INTEGER NOT NULL,
 isModerator NUMBER(1) DEFAULT 0 NOT NULL,
 CONSTRAINT fk_userSeason
 FOREIGN KEY (season)
-REFERENCES SeasonGoT(num));
+REFERENCES SeasonGoT(num)
+ON DELETE CASCADE);
 
 /*
-Note: name of the place is not really necessary but is still a candidate the primary key because we can not define a combination of attribute to be the key if they contain null values
+Note: name of the place is not really necessary but is still a candidate the primary key because we can not define a combination of attribute to be the key if they contain null values 
 */
-
+ 
 CREATE TABLE PlaceGot
 (name VARCHAR(30) NOT NULL PRIMARY KEY,
 name_group VARCHAR(30) NOT NULL,
@@ -53,47 +54,54 @@ year_of_birth INTEGER,
 gender CHAR(1) NOT NULL,
 job VARCHAR(30),
 first_appearance INTEGER NOT NULL,
-name_partner VARCHAR(30) REFERENCES CharacterGoT(name),
-name_killer VARCHAR(30) REFERENCES CharacterGoT(name),
+name_partner VARCHAR(30) REFERENCES CharacterGoT(name) ON DELETE CASCADE,
+name_killer VARCHAR(30) REFERENCES CharacterGoT(name) ON DELETE CASCADE,
 killed_in_season INTEGER,
 name_group VARCHAR(30),
 place_of_living VARCHAR(30) NOT NULL,
 number_episodes INTEGER NOT NULL,
-CONSTRAINT fk_firstAppearance
+CONSTRAINT fk_firstAppearance 
 FOREIGN KEY (first_appearance)
-REFERENCES SeasonGoT(num),
-CONSTRAINT fk_killedSeason
+REFERENCES SeasonGoT(num)
+ON DELETE CASCADE,
+CONSTRAINT fk_killedSeason 
 FOREIGN KEY (killed_in_season)
-REFERENCES SeasonGoT(num),
-CONSTRAINT fk_groupNameCharacter
+REFERENCES SeasonGoT(num)
+ON DELETE CASCADE,
+CONSTRAINT fk_groupNameCharacter 
 FOREIGN KEY (name_group)
 REFERENCES GroupGoT(name),
-CONSTRAINT fk_placeLiving
+CONSTRAINT fk_placeLiving 
 FOREIGN KEY (place_of_living)
-REFERENCES PlaceGoT(name));
+REFERENCES PlaceGoT(name),
+CONSTRAINT check_gender CHECK (gender IN ('F','M')),
+CONSTRAINT check_age CHECK (year_of_birth <= 304));
 
 CREATE TABLE OtherNamesGot
 (other_name VARCHAR(30) NOT NULL PRIMARY KEY,
 real_name VARCHAR(30) NOT NULL,
 CONSTRAINT fk_otherName
 FOREIGN KEY (real_name)
-REFERENCES CharacterGot(name));
+REFERENCES CharacterGot(name)
+ON DELETE CASCADE);
 
 CREATE TABLE LeaderGoT
 (name VARCHAR(30) NOT NULL PRIMARY KEY,
 aspires_to_throne NUMBER(1) DEFAULT 0 NOT NULL,
 name_group VARCHAR(30) NOT NULL,
 since_season INTEGER,
-CONSTRAINT fk_nameLeader
+CONSTRAINT fk_nameLeader 
 FOREIGN KEY (name)
-REFERENCES CharacterGot(name),
-CONSTRAINT fk_groupNameLeader
+REFERENCES CharacterGot(name)
+ON DELETE CASCADE,
+CONSTRAINT fk_groupNameLeader 
 FOREIGN KEY (name_group)
 REFERENCES GroupGoT(name),
 CONSTRAINT fk_sinceSeason
 FOREIGN KEY (since_season)
-REFERENCES SeasonGoT(num));
-
+REFERENCES SeasonGoT(num)
+ON DELETE CASCADE);
+ 
 --- should have at least a father or a mother (if not should not save him)
 
 CREATE TABLE ChildrenGoT
@@ -101,16 +109,19 @@ CREATE TABLE ChildrenGoT
 name_mother VARCHAR(30),
 name_father VARCHAR(30),
 CONSTRAINT check_parents CHECK (name_mother IS NOT NULL OR name_father IS NOT NULL),
-CONSTRAINT fk_nameChild
+CONSTRAINT fk_nameChild 
 FOREIGN KEY (name)
-REFERENCES CharacterGot(name),
-CONSTRAINT fk_nameMother
+REFERENCES CharacterGot(name)
+ON DELETE CASCADE,
+CONSTRAINT fk_nameMother 
 FOREIGN KEY (name_mother)
-REFERENCES CharacterGot(name),
-CONSTRAINT fk_nameFather
+REFERENCES CharacterGot(name)
+ON DELETE CASCADE,
+CONSTRAINT fk_nameFather 
 FOREIGN KEY (name_father)
-REFERENCES CharacterGot(name));
-
+REFERENCES CharacterGot(name)
+ON DELETE CASCADE);
+ 
 
 --- ##### POPULATES TABLES #####
 
@@ -158,32 +169,32 @@ insert into SeasonGot values
 
 --- PlaceGot
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island)
 values
 ('Iron Islands', 'Greyjoy', 'Westeros');
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island, name_region, name_city)
 values
 ('Winterfell', 'Stark', 'Westeros', 'North', 'Winterfell');
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island, name_region, name_castle)
 values
 ('Castle Black', 'Nights Watch', 'Westeros', 'North', 'Castle Black');
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island, name_region)
 values
 ('North', 'Stark', 'Westeros', 'North');
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island, name_region, name_city, name_castle)
 values
 ('Casterly Rock', 'Lannister', 'Westeros', 'Crownlands', 'Kings Landing', 'Casterly Rock');
 
-insert into PlaceGot
+insert into PlaceGot 
 (name, name_group, name_island, name_region, name_city)
 values
 ('Eyrie', 'Arryn', 'Westeros', 'Vale of Arryn', 'Eyrie');
@@ -356,12 +367,12 @@ values
 
 --- OtherNamesGot
 
-insert into OtherNamesGot
+insert into OtherNamesGot 
 (other_name,real_name)
 values
 ('The Lioness','Cersei Lannister');
 
-insert into OtherNamesGot
+insert into OtherNamesGot 
 (other_name,real_name)
 values
 ('Ned','Eddard Stark');
@@ -473,7 +484,7 @@ values
 
 --- UsersGoT
 
-insert into UsersGoT
+insert into UsersGoT 
 (username,password,season,isModerator)
 values
 ('yann','ypass',6,0);
@@ -512,8 +523,8 @@ values
 /*
 ##### Is character X dead ? If so who killed him and in what season?  (UI needs to output yes or no based on Null or not) #####
 
-SELECT killed_in_season , name_killer
-FROM CharacterGoT, UsersGoT
+SELECT killed_in_season , name_killer 
+FROM CharacterGoT
 WHERE name = 'Ramsay Bolton' AND killed_in_season < (SELECT season FROM UsersGoT WHERE username = 'prof')
 
 # null if name = 'Jaime Lannister'
@@ -523,7 +534,7 @@ WHERE name = 'Ramsay Bolton' AND killed_in_season < (SELECT season FROM UsersGoT
 
 SELECT name, aspires_to_throne
 FROM LeaderGot
-WHERE name_group = 'Stark' AND since_season = (
+WHERE name_group = 'Stark' AND since_season = ( 
 SELECT max(since_season )
 FROM LeaderGot
 WHERE name_group = 'Stark' AND since_season < (SELECT season FROM UsersGoT WHERE username = 'prof')
@@ -534,9 +545,9 @@ WHERE name_group = 'Stark' AND since_season < (SELECT season FROM UsersGoT WHERE
 
 ##### Does the owner of the place where X live aspires to the throne? #####
 
-SELECT l.name AS name, l.aspires_to_throne AS aspires_to_throne
+SELECT l.name, l.aspires_to_throne
 FROM LeaderGot l, PlaceGot p, CharacterGoT c
-WHERE c.name = 'Sansa Stark' AND p.name = c.place_of_living  AND l.name_group = p.name_group AND  l.since_season = (
+WHERE c.name = 'Sansa Stark' AND p.name = c.place_of_living  AND l.name_group = p.name_group AND  l.since_season = ( 
 SELECT max(l.since_season )
 FROM LeaderGot l, PlaceGot p, CharacterGoT c
 WHERE c.name = 'Sansa Stark' AND p.name = c.place_of_living  AND l.name_group = p.name_group AND since_season < (
@@ -558,7 +569,7 @@ SELECT season FROM UsersGoT WHERE username = 'prof'
 
 ##### Which character killed parents with a child  ? #####
 
-SELECT character.name_killer AS killer
+SELECT character.name_killer
 FROM ChildrenGot child, CharacterGoT character
 WHERE character.name IN (child.name_father, child.name_mother) AND character.name_killer IS NOT NULL AND character.killed_in_season < (
 SELECT season FROM UsersGoT WHERE username = 'prof'
@@ -584,7 +595,7 @@ SELECT season FROM UsersGoT WHERE username = 'prof'
 
 ##### In which season did most character appear and how many did ? #####
 
-SELECT query1.first_appearance AS season
+SELECT query1.first_appearance
 FROM (SELECT first_appearance, Count(*) AS order_count
       FROM CharacterGoT c
       GROUP BY c.first_appearance) query1,
@@ -594,21 +605,7 @@ FROM (SELECT first_appearance, Count(*) AS order_count
             GROUP BY c.first_appearance) query2) query3
 WHERE query1.order_count = query3.highest_count
 
-##### In which season did most character appear and who many did ?
-
-SELECT name, first_appearance
-FROM CharacterGoT
-WHERE first_appearance= (SELECT query1.first_appearance
-FROM (SELECT first_appearance, Count(*) AS order_count
-      FROM CharacterGoT c
-      GROUP BY c.first_appearance) query1,
-     (SELECT max(query2.order_count) AS highest_count
-      FROM (SELECT first_appearance, Count(*) AS order_count
-            FROM CharacterGoT c
-            GROUP BY c.first_appearance) query2) query3
-WHERE query1.order_count = query3.highest_count)
-
-##### In which season did most character die and who many did ?
+##### In which season did most character die and who many did ? 
 
 SELECT name, killed_in_season
 FROM CharacterGoT
@@ -627,14 +624,14 @@ FROM (SELECT killed_in_season, Count(*) AS order_count
 		SELECT season FROM UsersGoT WHERE username = 'lotus'
 		)
             GROUP BY c.killed_in_season) query2) query3
-WHERE query1.order_count = query3.highest_count)
+WHERE query1.order_count = query3.highest_count) 
 
 #  1 and 4  if username = 'lotus'
 #  6  if username = 'prof'
 
 ##### Who had a child youngest ?  #####
 
-SELECT characterParent.name AS parent
+SELECT characterParent.name
 FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild
 WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name AND ( characterChild.year_of_birth - characterParent.year_of_birth ) = (
 SELECT  MIN(characterChild.year_of_birth - characterParent.year_of_birth)
@@ -643,8 +640,8 @@ WHERE characterParent.name IN (child.name_father, child.name_mother) AND charact
 )
 
 ##### What is the percentage of women  and men death?  #####
-SELECT query1.gender AS gender, query1.deathCount / query2.totalCount AS average_death
-FROM
+SELECT query1.gender, query1.deathCount / query2.totalCount AS average_death
+FROM 
 (SELECT gender, COUNT(*) AS deathCount
 FROM CharacterGoT
 WHERE killed_in_season IS NOT NULL
@@ -662,19 +659,49 @@ SELECT MAX(number_episodes)
 FROM CharacterGoT
 )
 
+##### User change the last season he watched. ##### 
+ 
+UPDATE UsersGoT 
+SET season = 3 
+WHERE username = 'chase' 
+
+
+########### STOP ###############
+
 ##### Moderator: change other name. #####
 
 UPDATE OtherNamesGot
 SET other_name = 1
 WHERE other_name = 'Fat Walda Frey'  AND (
-SELECT isModerator
+SELECT isModerator 
 FROM UsersGoT
-WHERE username = 'prof') = 1
+WHERE username = 'prof') = 1 
 
+##### User change the last season he watched: not working . #####
 
-##### User change the last season he watched. #####
+UPDATE CharacterGoT
+SET year_of_birth = 400
+WHERE username = 'Sansa Stak'
 
-UPDATE UsersGoT
-SET season = 3
-WHERE username = 'chase'
+# not working because year <= 304
+# 284 works
+
+##### Try to delete when constraint #####
+
+DELETE FROM groupGot
+WHERE name = 'Stark'
+
+##### Delete with cascade #####
+
+DELETE FROM SeasonGoT
+WHERE num = 4
+
+##### Division: show group where everyone is dead #####
+
+SELECT name
+FROM GroupGot g
+WHERE NOT EXISTS (
+(SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name)
+MINUS
+(SELECT name FROM CharacterGoT WHERE name_killer IS NOT NULL));
 */
