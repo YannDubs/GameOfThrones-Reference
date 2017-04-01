@@ -14,12 +14,12 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT name
-						FROM GroupGot g
-						WHERE NOT EXISTS (
-						(SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name)
-						MINUS
-						(SELECT name FROM CharacterGoT WHERE name_killer IS NOT NULL))");
+  $table = $conn->query("SELECT name ".
+			"FROM GroupGot g ".
+			"WHERE NOT EXISTS ( ".
+			"(SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name) ".
+			"MINUS ".
+			"(SELECT name FROM CharacterGoT WHERE killed_in_season IS NOT NULL AND killed_in_season < (SELECT season FROM UsersGoT WHERE username = :userN))););"  , ['userN' => 'guest']);
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 

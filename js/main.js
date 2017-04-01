@@ -418,6 +418,9 @@ app.controller("DeadCharacterController", function($scope, $http, $page){
       // spoiler component
       // result table component
 
+    var params = {'character': $scope.character};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
@@ -425,7 +428,7 @@ app.controller("DeadCharacterController", function($scope, $http, $page){
 
     var the_scope = $scope;
 
-    $http.post("php/dead_character.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/dead_character.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -472,13 +475,16 @@ app.controller("GroupLeaderController", function($scope, $http, $page){
       // spoiler component
       // result table component
 
+      var params = {'name': $scope.name};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/leader_of_group_q.php", {'name': $scope.name}).then(function success(res){
+    $http.post("php/leader_of_group_q.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -575,13 +581,16 @@ app.controller("PlaceOwnerController", function($scope, $http, $page){
       // spoiler component
       // result table component
 
+      var params = {'character': $scope.character};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/owner_of_place.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/owner_of_place.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -633,7 +642,11 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/age_of_death_q.php", {'character': $scope.character}).then(function success(res){
+    var params = {'character': $scope.character};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
+
+    $http.post("php/age_of_death_q.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -678,13 +691,16 @@ app.controller("FirstAppearanceController", function($scope, $http, $page){
       // spoiler component
       // result table component
 
+    var params = {'character': $scope.character};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+      
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/first_appearance.php", {'character': $scope.character}).then(function success(res){
+    $http.post("php/first_appearance.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -799,13 +815,17 @@ app.controller("ChildKillersController", function($scope, $http, $page){
       $scope.postErrorMessage("Please enter a positive integer");
       return;
     }
+
+    var params = {'age': $scope.age};
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/child_killer.php", {'age': $scope.age}).then(function success(res){
+    $http.post("php/child_killer.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -851,13 +871,16 @@ app.controller("OrphanMakersController", function($scope, $http, $page){
       // spoiler component
       // result table component
 
+    var params = new Object();
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
     // send request to server
-    $http.post("php/made_orphan.php", {}).then(function success(res){
+    $http.post("php/made_orphan.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){
@@ -953,13 +976,17 @@ app.controller("BloodySeasonController", function($scope, $http, $page){
     // <... ng-click="submit_form()">
   $scope.submit_form = function () {
 
+
     $scope.show_loading = true; // show loading div
     $scope.show_result = false; // make sure result table is hidden
 
     var the_scope = $scope;
 
+    var params = new Object();
+    if ($scope.account) params['userN'] = $scope.account.USERNAME;
+
     // send request to server
-    $http.post("php/bloody_season.php", {}).then(function success(res){
+    $http.post("php/bloody_season.php", params).then(function success(res){
       // when we get data back
 
       if (res.data.result){

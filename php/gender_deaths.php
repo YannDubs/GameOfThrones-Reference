@@ -15,16 +15,16 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT query1.gender AS gender, query1.deathCount / query2.totalCount AS average_death
-						FROM
-						(SELECT gender, COUNT(*) AS deathCount
-						FROM CharacterGoT
-						WHERE killed_in_season IS NOT NULL
-						GROUP BY gender) query1,
-						(SELECT gender, COUNT(*) AS totalCount
-						FROM CharacterGoT
-						GROUP BY gender) query2
-						WHERE query1.gender = query2.gender");
+  $table = $conn->query("SELECT query1.gender AS gender, query1.deathCount / query2.totalCount AS average_death ".
+						"FROM ".
+						"(SELECT gender, COUNT(*) AS deathCount ".
+						"FROM CharacterGoT ".
+						"WHERE killed_in_season IS NOT NULL ".
+						"GROUP BY gender) query1, ".
+						"(SELECT gender, COUNT(*) AS totalCount ".
+						"FROM CharacterGoT ".
+						"GROUP BY gender) query2 ".
+						"WHERE query1.gender = query2.gender");
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 

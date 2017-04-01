@@ -15,13 +15,13 @@ $conn = new DBConnector(); // Open a connection to the DB
 // gets resulting query array
 
 try {
-  $table = $conn->query("SELECT characterParent.name AS parent,characterChild.name AS child, characterChild.year_of_birth - characterParent.year_of_birth AS difference
-						FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild
-						WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name AND ( characterChild.year_of_birth - characterParent.year_of_birth ) = (
-						SELECT  MIN(characterChild.year_of_birth - characterParent.year_of_birth) AS min
-						FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild
-						WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name
-						)");
+  $table = $conn->query("SELECT characterParent.name AS parent,characterChild.name AS child, characterChild.year_of_birth - characterParent.year_of_birth AS difference ".
+						"FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild ".
+						"WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name AND ( characterChild.year_of_birth - characterParent.year_of_birth ) = ( ".
+						"SELECT  MIN(characterChild.year_of_birth - characterParent.year_of_birth) AS min ".
+						"FROM ChildrenGot child, CharacterGoT characterParent, CharacterGoT characterChild ".
+						"WHERE characterParent.name IN (child.name_father, child.name_mother) AND characterChild.name = child.name ". 
+						")");
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output

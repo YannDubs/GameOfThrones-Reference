@@ -13,10 +13,10 @@ header("Content-type:application/json"); // set file type to json!
 $conn = new DBConnector(); // Open a connection to the DB
 
 try {
-  $table = $conn->query("SELECT COUNT(c.killed_in_season) AS KILLED,  LISTAGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS NAMES,  s.num AS SEASON  
-  						FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num  
-  						WHERE s.num < (SELECT season FROM usersgot WHERE username = 'lotus') 
-  						 GROUP BY s.num");
+  $table = $conn->query("SELECT COUNT(c.killed_in_season) AS KILLED,  LISTAGG(c.name, ', ') WITHIN GROUP (ORDER BY c.name) AS NAMES,  s.num AS SEASON ".
+  						"FROM CHARACTERGOT c RIGHT JOIN SEASONGOT s ON c.killed_in_season = s.num ".  
+  						"WHERE s.num < (SELECT season FROM usersgot WHERE username = :userN) ". 
+  						 "GROUP BY s.num" , ['userN' => 'guest']);
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
