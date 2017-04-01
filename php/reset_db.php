@@ -10,13 +10,16 @@ require_once('exception/FailureException.php');
 
 header("Content-type:application/json"); // set file type to json!
 
-$conn = new DBConnector(); // Open a connection to the DB
+// $conn = new DBConnector(); // Open a connection to the DB
 
 // gets resulting query array
 
 try {
 
   $scpt = file_get_contents("../sql/gameOfThrones.sql");
+
+  $scpt = preg_replace('/\/\*.*?\*\//s', '', $scpt);
+  $scpt = preg_replace('/^---.*$/m', '', $scpt);
 
   $conn->send($scpt);
 
