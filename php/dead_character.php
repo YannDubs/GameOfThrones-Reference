@@ -17,8 +17,7 @@ $conn = new DBConnector(); // Open a connection to the DB
 try {
   $table = $conn->query("SELECT killed_in_season , name_killer ".
 						"FROM CharacterGoT ".
-						"WHERE name = :character ".
-						"AND killed_in_season IS NOT NULL AND name_killer IS NOT NULL" );
+						"WHERE name = :character AND killed_in_season < (SELECT season FROM UsersGoT WHERE username = :userN)" , ['userN' => 'guest']);
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 

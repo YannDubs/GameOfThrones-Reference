@@ -20,8 +20,8 @@ try {
 						"WHERE name_group = :name AND since_season = ( ".
 						"SELECT max(since_season ) ".
 						"FROM LeaderGot ".
-						"WHERE name_group = :name AND since_season < (SELECT season FROM UsersGoT WHERE username = 'prof') ".
-						")");
+						"WHERE name_group = :name AND since_season < (SELECT season FROM UsersGoT WHERE username = :userN) ".
+						")"  , ['userN' => 'guest']);
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
   // convert PHP array to JSON and output

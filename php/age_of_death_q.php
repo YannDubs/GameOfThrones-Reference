@@ -13,13 +13,12 @@ header("Content-type:application/json"); // set file type to json!
 $conn = new DBConnector(); // Open a connection to the DB
 
 // gets resulting query array
-
 try {
-  $table = $conn->query("SELECT  s.approx_year - c.year_of_birth AS age
-						FROM CharacterGoT c, SeasonGot s
-						WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < (
-						SELECT season FROM UsersGoT WHERE username = 'prof'
-						)" );
+  $table = $conn->query("SELECT  s.approx_year - c.year_of_birth AS age ".
+						"FROM CharacterGoT c, SeasonGot s ".
+						"WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ( ".
+						"SELECT season FROM UsersGoT WHERE username = :userN ".
+						")" , ['userN' => 'guest']);
 
   // $table = $conn->query("SELECT table_name FROM user_tables");
 
