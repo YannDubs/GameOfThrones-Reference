@@ -18,6 +18,9 @@ try {
 
   $scpt = file_get_contents("../sql/gameOfThrones.sql");
 
+  $scpt = preg_replace('/\/\*.*?\*\//s', '', $scpt);
+  $scpt = preg_replace('/^---.*$/m', '', $scpt);
+
   $conn->send($scpt);
 
   $table = [];
