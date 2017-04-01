@@ -10,6 +10,21 @@ function closeNav() {
     document.body.style.backgroundColor = "white";
 }
 
+// sql Stuff
+
+function SQLPrettify(q){
+  var keywords = ["SELECT", "FROM", "WHERE", "HAVING", "AND", "OR"];
+  var indent_level = 0;
+  var q_parts = [q];
+
+  for (var keyword in keywords){
+    var i = 0;
+
+  }
+
+  return q_parts;
+}
+
 // Angular Stuff
 // Create Angular Module
 var app = angular.module('GoT_Reference', ["ngRoute","ui.bootstrap"]);
@@ -223,7 +238,7 @@ app.controller("GroupInfosController", function($scope,$http,$page){
     }
     return true;
   }
-   
+
 
    $scope.submit_form = function() {
         $scope.show_loading = true; // show loading div
@@ -254,9 +269,9 @@ app.controller("GroupInfosController", function($scope,$http,$page){
             if (res.data.result){
               the_scope.show_loading = false; // hide loading div
               the_scope.show_result = true; // show result table
-              
+
               the_scope.table= the_scope.mapResultToTable(res.data.result);
-              
+
             } else if (res.data.spoiler){
                 the_scope.postSpoilerMessage(res.data.spoiler);
             } else if (res.data.error){
@@ -465,10 +480,10 @@ app.controller("AgeOfDeathController", function($scope, $http, $page){
   // default loading div and result table to hidden
   $scope.show_loading = false;
   $scope.show_result = false;
-  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age"
-            +"FROM CharacterGoT c, SeasonGot s"
-            +"WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ("
-            +"SELECT season FROM UsersGoT WHERE username = 'prof')";
+  $scope.queries = "SELECT  s.approx_year - c.year_of_birth AS age " +
+            "FROM CharacterGoT c, SeasonGot s " +
+            "WHERE c.name = :character AND s.num = c.killed_in_season AND c.killed_in_season < ( " +
+            "SELECT season FROM UsersGoT WHERE username = 'prof')";
 
   // submit function
     // <... ng-click="submit_form()">
@@ -744,7 +759,6 @@ app.controller("MostAppearancesController", function($scope, $http, $page){
 
 });
 
-<<<<<<< HEAD
 function mostKilledJsonProcessing(r){
     if (r.length == 0) {
       return {seasons: [], names: []};
@@ -787,13 +801,12 @@ function contains(array,element){
   }
   return false;
 }
+//
+// app.controller("MostKilledController", function($scope, $http, $page){
+//   $page.setTitle("Most killed"); // Set title
 
-app.controller("MostKilledController", function($scope, $http, $page){
-  $page.setTitle("Most killed"); // Set title
-=======
 app.controller("BloodySeasonController", function($scope, $http, $page){
   $page.setTitle("Bloody season"); // Set title
->>>>>>> ed87bea11528f9b30663e7b4004346a3f37704de
 
   // default loading div and result table to hidden
   $scope.show_loading = false;

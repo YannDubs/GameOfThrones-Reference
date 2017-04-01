@@ -201,6 +201,10 @@ input[type="radio"]{
     }
 }
 
+.popover.sql-popover {
+  max-width: 800px;
+}
+
 
 /* Extras */
 a:visited{color:#888}
