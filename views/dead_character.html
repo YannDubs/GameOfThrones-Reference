@@ -1,6 +1,10 @@
+<div>
+	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
+		<span class="glyphicon glyphicon-info-sign"></span>
+	</button>
 	<div class="inputBox">
 	  <p>
-	    Is <input type="text" ng-model="character" placeholder="character"> dead?
+	    Is <input type="text" ng-model="character" placeholder="Character"> dead?
 	  </p>
 	  <button ng-click="submit_form()">Query!</button>
 	</div>
@@ -13,3 +17,4 @@
 	  <div ng-show="(result).length">Killed by {{result[0].NAME_KILLER}} in season {{result[0].KILLED_IN_SEASON}}</div>
 	  <div ng-show="!(result).length">Character is still alive</div>
 	</div>
+</div>

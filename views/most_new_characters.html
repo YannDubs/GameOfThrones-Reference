@@ -1,10 +1,10 @@
-<div>
+<div>	
 	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
 		<span class="glyphicon glyphicon-info-sign"></span>
 	</button>
 	<div class="inputBox">
 	  <p>
-	    What season did <input type="text" ng-model="character" placeholder="Character"> first appear?
+	     In which season did most character appear?
 	  </p>
 	  <button ng-click="submit_form()">Enter</button>
 	</div>
@@ -14,7 +14,13 @@
 	</div>
 
 	<div class="resultBox" ng-show="show_result">
-	  <div ng-show="(result).length">This character first appeared in season {{result[0].FIRST_APPEARANCE}}</div>
-	  <div ng-show="!(result).length">This character didn't appear yet</div>
+      <div ng-show="!(result).length">Unknown</div>
+	   <div ng-show="(result).length"> 
+	   		<label>Most appearences were in season : {{result[0].FIRST_APPEARANCE}}</label><br>
+	   		<label><u>The characters that appeared are the following:</u></label>
+	   		<ul ng-repeat="i in result">
+	   			<li>{{i.NAME}}</li>
+	   		</ul>
+	   </div>
 	</div>
-</div>
+<div>	

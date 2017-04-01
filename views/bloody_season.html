@@ -1,0 +1,37 @@
+<div>
+	<button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
+		<span class="glyphicon glyphicon-info-sign"></span>
+	</button>
+	<div>
+	  <p>
+	    In which season did most character die?
+	  </p>
+	  <button ng-click="submit_form()">Enter</button>
+	</div>
+	<br/>
+	<div ng-show="show_loading">
+	  <p>Loading</p>
+	</div>
+
+	<div ng-show="show_result">
+		<table>
+			<thead>
+				<tr>
+					<th class="titles">Season</th>
+					<th class="titles">How many died</th>
+					<th class="titles">People that died</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="i in result">
+					<td>{{i.SEASON}}</td>
+					<td>{{i.KILLED}}</td>
+					<td>{{i.NAMES}}</td>
+				</tr>
+			</tbody>
+		</table>
+	   
+	</div>
+</div>	
+
+	

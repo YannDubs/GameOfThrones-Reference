@@ -2,6 +2,10 @@ html, body, #content {
   height: 100%;
 }
 
+body{
+  background-color:black;
+}
+
 #sidebar {
   height: 100%;
   width: 300px;
@@ -36,6 +40,9 @@ html, body, #content {
   font-weight:bold;
 }
 
+.btn.btn-info{
+  float:right;
+}
 .resultBox{
   margin-top:10px;
   font-weight:bold;
