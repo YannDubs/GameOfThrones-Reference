@@ -1,9 +1,9 @@
 <div ng-controller="GroupInfosController">
     <h1 id="viewTitle">Infos about groups</h1>
-    <button uib-popover-template="'views/sqlpop.html'" popover-placement="left" popover-trigger="'mouseenter'" class="btn btn-info">
-        <span class="glyphicon glyphicon-info-sign"></span>
+    <button uib-popover-template="'views/sqlpop.html'" popover-class="sql-popover" popover-placement="auto bottom-right" popover-trigger="'mouseenter'" class="btn btn-info">
+    <span class="glyphicon glyphicon-info-sign"></span>
     </button>
-    <hr/>
+    <hr class="viewHr"/>
     <form name="groupAndAttributes" ng-submit="submit_form()">
         <legend>Choose a group:</legend>
         <div class="cc-selector">
