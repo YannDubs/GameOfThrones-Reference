@@ -875,7 +875,7 @@ function mostKilledJsonProcessing(r){
     }
     for (var v of r){
       var season=v[headers[1]];
-      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]); 
+      namesAssociated[getIndex(distinctSeasons,season)].push(v[headers[0]]);
     }
     alert(namesAssociated[0]);
     alert(namesAssociated[1]);
