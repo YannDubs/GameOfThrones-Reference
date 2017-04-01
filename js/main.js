@@ -180,6 +180,57 @@ app.controller("ModeratorController", function($scope, $http){
       );
     }
   };
+
+  $scope.test_update_constraint = function(){
+    var the_scope = $scope;
+    $http.post("php/update_constraint.php",{}).then(
+      function success(res){
+        if (res.data.result) {
+
+        } else if (res.data.error){
+
+        }
+        console.log(res);
+      },
+      function failure(res){
+        the_scope.postErrorMessage("There was an exception", res.message);
+      }
+    );
+  }
+
+  $scope.test_delete_constraint = function(){
+    var the_scope = $scope;
+    $http.post("php/delete_constraint.php",{}).then(
+      function success(res){
+        if (res.data.result) {
+        } else if (res.data.error){
+        }
+        console.log(res);
+
+      },
+      function failure(res){
+        the_scope.postErrorMessage("There was an exception", res.message);
+      }
+    );
+  }
+
+  $scope.cascade_delete = function(){
+    var the_scope = $scope;
+    $http.post("php/cascade_delete.php",{}).then(
+      function success(res){
+        if (res.data.result) {
+
+        } else if (res.data.error){
+
+        }
+        console.log(res);
+
+      },
+      function failure(res){
+        the_scope.postErrorMessage("There was an exception", res.message);
+      }
+    );
+  }
 });
 
 app.controller("AdminLoginController", function($scope, $http){

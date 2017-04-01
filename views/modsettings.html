@@ -6,6 +6,9 @@
 </div>
 <div ng-if="account.ISMODERATOR">
 
+  <span>Test Update Constraint: <button type="button" class="btn btn-warning" ng-click="test_update_constraint()">Submit</button></span>
+  <span>Test Delete Constraint: <button type="button" class="btn btn-warning" ng-click="test_delete_constraint()">Submit</button></span>
+  <span>Cascade Delete: <button type="button" class="btn btn-secondary" ng-click="cascade_delete()">Submit</button></span>
 
   <div id="reset-button-container">
     <button type="button" class="btn btn-danger" ng-click="resetDB()">Reset Database (you will be logged out)</button>
