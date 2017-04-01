@@ -1,0 +1,14 @@
+<div ng-if="!account">
+  You're must log in to access this page
+</div>
+<div ng-if="account && !account.ISMODERATOR">
+  You're not a moderator.
+</div>
+<div ng-if="account.ISMODERATOR">
+
+
+  <div id="reset-button-container">
+    <button type="button" class="btn btn-danger" ng-click="resetDB()">Reset Database (you will be logged out)</button>
+  </div>
+
+</div>

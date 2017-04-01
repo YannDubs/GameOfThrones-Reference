@@ -104,6 +104,11 @@ app.config(function($routeProvider) {
         controller: "YoungParentsController",
         url: ""
     })
+    .when("/modsettings", {
+        templateUrl: "views/modsettings.html",
+        controller: "ModeratorController",
+        url: ""
+    })// add more views here
      .when("/group_dead", {
         templateUrl: "views/group_dead.html",
         controller: "GroupDeadController",
@@ -151,6 +156,24 @@ app.controller("SettingsController", function($scope, $http){
       the_scope.postErrorMessage("There was an exception", res.message);
       console.log(res);
     });
+  };
+});
+
+app.controller("ModeratorController", function($scope, $http){
+  $scope.resetDB = function () {
+    if (confirm('Any changes in the current schema will be lost, and all tables will be restored to their initial values. You will be automatically logged out to perform this operation. Are you sure?')) {
+      var the_scope = $scope;
+
+      $http.post("php/login_q.php",{}).then(
+        function success(res){
+          the_scope.postInfoMessage("Database reset. Logging out...");
+          the_scope.logout();
+        },
+        function failure(res){
+          the_scope.postErrorMessage("There was an exception", res.message);
+        }
+      );
+    }
   };
 });
 
@@ -763,7 +786,7 @@ app.controller("ChildKillersController", function($scope, $http, $page){
       // error component
       // spoiler component
       // result table component
-      
+
     if(isNaN($scope.age)){
       $scope.postErrorMessage("Please enter a Number !");
       return;
