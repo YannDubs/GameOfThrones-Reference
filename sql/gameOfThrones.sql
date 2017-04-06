@@ -707,4 +707,12 @@ WHERE NOT EXISTS (
 (SELECT c.name FROM CharacterGoT c WHERE c.name_group = g.name)
 MINUS
 (SELECT name FROM CharacterGoT WHERE killed_in_season IS NOT NULL AND killed_in_season < (SELECT season FROM UsersGoT WHERE username = 'prof')));
+
+UPDATE CharacterGoT SET name_group='Stark' WHERE name = 'Yann';
+UPDATE CharacterGoT SET name_group='Tully' WHERE name = 'Yann';
+
+select name_group from CharacterGoT WHERE name = 'Yann';
+
+
+
 */
